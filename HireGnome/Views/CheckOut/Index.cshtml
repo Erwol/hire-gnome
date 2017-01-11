@@ -1,0 +1,33 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<div id="div1">
+    this is created from the server
+</div>
+<script>
+    window.addEventListener("load", function () {
+
+        var button1 = document.getElementById("button1");
+        button1.addEventListener("click", function () {
+
+            var req = new XMLHttpRequest();
+            req.open("GET", "/Checkout/AjaxCall");
+            req.onreadystatechange = function () {
+                if (req.readyState == XMLHttpRequest.DONE) {
+                    var div1 = document.getElementById("div1");
+                    div1.innerHTML = req.responseText;
+                };
+            };
+            req.send();
+
+        });
+
+    });
+</script>
+
+<button id="button1">Click to send ajax requeest</button>
+

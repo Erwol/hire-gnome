@@ -1,0 +1,21 @@
+﻿@model HireGnome.Models.LoginModel
+@{
+    ViewBag.Title = "Login";
+}
+
+<h2>Login</h2>
+@Html.ValidationSummary(true) 
+
+@using (Html.BeginForm()) // Equivalent to a <form> tag
+{
+    @Html.EditorForModel() // Displays model based on attributes
+    <p>
+        <button type="submit">
+            Log in
+        </button>
+    </p>
+}
+
+
+
+
