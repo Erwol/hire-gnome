@@ -40,3 +40,7 @@ C:\Users\Ernesto\Dropbox\Workspaces\express\HireGnome\HireGnome\bin\System.Web.M
 C:\Users\Ernesto\Dropbox\Workspaces\express\HireGnome\HireGnome\obj\Debug\HireGnome.csprojResolveAssemblyReference.cache
 C:\Users\Ernesto\Dropbox\Workspaces\express\HireGnome\HireGnome\obj\Debug\HireGnome.dll
 C:\Users\Ernesto\Dropbox\Workspaces\express\HireGnome\HireGnome\obj\Debug\HireGnome.pdb
+C:\Users\Ernesto\Dropbox\Workspaces\express\HireGnome\HireGnome\bin\EntityFramework.dll
+C:\Users\Ernesto\Dropbox\Workspaces\express\HireGnome\HireGnome\bin\EntityFramework.SqlServer.dll
+C:\Users\Ernesto\Dropbox\Workspaces\express\HireGnome\HireGnome\bin\EntityFramework.xml
+C:\Users\Ernesto\Dropbox\Workspaces\express\HireGnome\HireGnome\bin\EntityFramework.SqlServer.xml

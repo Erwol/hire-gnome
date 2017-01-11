@@ -7,7 +7,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace HireGnome.Models
 {
-    public class LoginModel
+    public class Users
     {
         [Required]
         [DataType(DataType.EmailAddress)]
@@ -19,5 +19,9 @@ namespace HireGnome.Models
 
         [HiddenInput(DisplayValue = false)] // Temporary data storage
         public string ReturnUrl { get; set; }
+
+        public string Name { get; set; }
+
+        public string Country { get; set; }
     }
 }

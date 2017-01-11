@@ -19,20 +19,15 @@ namespace HireGnome.Controllers
             authManager.SignOut("ApplicationCookie");
             return RedirectToAction("Login", "Auth");
         }
+
         // GET: Auth
         [HttpGet]
-        public ActionResult Login(string returnUrl)
+        public ActionResult Login()
         {
-            var model = new LoginModel
-            {
-                ReturnUrl = returnUrl
-                // Rest of values are null
-            };
-
-            return View(model);
+            return View();
         }
 
-        public ActionResult LogIn(LoginModel model)
+        public ActionResult LogIn(Users model)
         {
             if (!ModelState.IsValid) //Checks if input fields have the correct format
             {
@@ -51,20 +46,31 @@ namespace HireGnome.Controllers
                 var authManager = ctx.Authentication;
                 authManager.SignIn(identity);
 
-                return Redirect(GetRedirectUrl(model.ReturnUrl));
+                // return Redirect(GetRedirectUrl(model.ReturnUrl));
+                return RedirectToAction("Index", "Home");
             }
             ModelState.AddModelError("", "Invalid email or password...");
             return View(model); //Should always be declared on the end of an action method
         }
 
-        private String GetRedirectUrl(string returnUrl)
+        public ActionResult Registration()
         {
-            if(string.IsNullOrEmpty(returnUrl) || !Url.IsLocalUrl(returnUrl))
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Registration(Users model)
+        {
+            if (ModelState.IsValid)
             {
-                return Url.Action("index", "home");
+                using(var db = new MainDbContext())
+                {
+
+                }
             }
 
-            return returnUrl;
+            return View();
         }
+       
     }
 }
