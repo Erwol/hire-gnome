@@ -30,6 +30,7 @@ namespace HireGnome.Controllers
             {
                 string timeToday = DateTime.Now.ToString("h:mm:ss tt");
                 string dateToday = DateTime.Now.ToString("M/dd/yyyy");
+
                 using (var db = new MainDbContext())
                 {
                     // Gets the Email ClaimType and assigned it to the variable sessionEmail
@@ -44,8 +45,8 @@ namespace HireGnome.Controllers
                     // dbList.Details = list.Details; Doesn't work after changing from strong type to input text
                     dbList.Details = Request.Form["new_item"];
 
-                    dbList.Date_Posted = list.Date_Posted;
-                    dbList.Time_Posted = list.Time_Posted;
+                    dbList.Date_Posted = dateToday;
+                    dbList.Time_Posted = timeToday;
 
                     dbList.User_Id = userId;
 

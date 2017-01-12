@@ -12,6 +12,7 @@ namespace HireGnome.Controllers
         // GET: Product
         public ActionResult Index()
         {
+            var db = new MainDbContext();
             return View();
         }
     }
