@@ -20,11 +20,11 @@
 
                 @if (@User.Identity.IsAuthenticated)
                 {
-                    @Html.ActionLink("Hello " + @User.Identity.Name, "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                    @Html.ActionLink("Hire a Gnome " + @User.Identity.Name + "!", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
                 }
                 else
                 {
-                    @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                    @Html.ActionLink("Hire a Gnome!", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
                 }
                 
             </div>

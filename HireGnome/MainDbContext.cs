@@ -14,6 +14,8 @@ namespace HireGnome
 
         }
 
+        public DbSet<Lists> Lists { get; set; } // We've to add this here in order to make db queries
+
         public DbSet<Users> Users { get; set; } // This tells the app that is the representation of the table with its exact name
     }
 }

@@ -1,51 +1,48 @@
-﻿using System;
+﻿using HireGnome.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Web;
 using System.Web.Mvc;
-using HireGnome.Models;
-using System.Security.Claims; // Credential validation
-using HireGnome.CustomLibraries; // De/Encrypt
+using HireGnome.CustomLibraries;
 
 namespace HireGnome.Controllers
 {
-    [AllowAnonymous] // It simply says that everything under your AuthController can be accessed by anyone. This also by-passes the AuthorizeAttribute
+    [AllowAnonymous]
     public class AuthController : Controller
     {
-        public ActionResult Logout()
+        // GET: Auth
+        [HttpGet]
+        public ActionResult Index()
         {
-            var ctx = Request.GetOwinContext();
-            var authManager = ctx.Authentication;
-
-            authManager.SignOut("ApplicationCookie");
-            return RedirectToAction("Login", "Auth");
+            var db = new MainDbContext();
+            return View(db.Lists.Where(x => x.Public == "YES").ToList());
         }
 
-        // GET: Auth
         [HttpGet]
         public ActionResult Login()
         {
             return View();
         }
 
-        public ActionResult LogIn(Users model)
+        [HttpPost]
+        public ActionResult Login(Users model)
         {
             if (!ModelState.IsValid) //Checks if input fields have the correct format
             {
                 return View(model); //Returns the view with the input values so that the user doesn't have to retype again
             }
 
-            using(var db = new MainDbContext())
+            using (var db = new MainDbContext())
             {
                 var emailCheck = db.Users.FirstOrDefault(u => u.Email == model.Email);
                 var getPassword = db.Users.Where(u => u.Email == model.Email).Select(u => u.Password);
-
                 var materializePassword = getPassword.ToList();
                 var password = materializePassword[0];
                 var decryptedPassword = CustomDecrypt.Decrypt(password);
 
-
-                if(model.Email != null && model.Password == decryptedPassword)
+                if (model.Email != null && model.Password == decryptedPassword)
                 {
                     var getName = db.Users.Where(u => u.Email == model.Email).Select(u => u.Name);
                     var materializeName = getName.ToList();
@@ -55,12 +52,16 @@ namespace HireGnome.Controllers
                     var materializeCountry = getCountry.ToList();
                     var country = materializeCountry[0];
 
-                    var identity = new ClaimsIdentity(new[] {
-                        new Claim(ClaimTypes.Name, name),
-                        new Claim(ClaimTypes.Country, country),
-                        new Claim(ClaimTypes.Email, model.Email) // Or materialize email ...
-                    }, "ApplicationCookie");
+                    var getEmail = db.Users.Where(u => u.Email == model.Email).Select(u => u.Email);
+                    var materializeEmail = getEmail.ToList();
+                    var email = materializeEmail[0];
 
+                    var identity = new ClaimsIdentity(new[] {
+                    new Claim(ClaimTypes.Name, name),
+                    new Claim(ClaimTypes.Email, email),
+                    new Claim(ClaimTypes.Country, country)
+                },
+                        "ApplicationCookie");
 
                     var ctx = Request.GetOwinContext();
                     var authManager = ctx.Authentication;
@@ -70,8 +71,18 @@ namespace HireGnome.Controllers
                     return RedirectToAction("Index", "Home");
                 }
             }
-            ModelState.AddModelError("", "Invalid email or password...");
-            return View(model); //Should always be declared on the end of an action method
+
+            ModelState.AddModelError("", "Invalid email or password");
+            return View(model);
+        }
+
+        public ActionResult Logout()
+        {
+            var ctx = Request.GetOwinContext();
+            var authManager = ctx.Authentication;
+
+            authManager.SignOut("ApplicationCookie");
+            return RedirectToAction("Login", "Auth");
         }
 
         public ActionResult Registration()
@@ -84,29 +95,31 @@ namespace HireGnome.Controllers
         {
             if (ModelState.IsValid)
             {
-                using(var db = new MainDbContext())
+                using (var db = new MainDbContext())
                 {
-                    var encryptedPassword = CustomEncrypt.Encrypt(model.Password);
-                    var user = db.Users.Create();
-
-                    user.Email = model.Email;
-                    user.Password = encryptedPassword;
-                    user.Country = model.Country;
-                    user.Name = model.Name;
-
-                    db.Users.Add(user);
-                    db.SaveChanges();
+                    var queryUser = db.Users.FirstOrDefault(u => u.Email == model.Email);
+                    if (queryUser == null)
+                    {
+                        var encryptedPassword = CustomEncrypt.Encrypt(model.Password);
+                        var user = db.Users.Create();
+                        user.Email = model.Email;
+                        user.Password = encryptedPassword;
+                        user.Country = model.Country;
+                        user.Name = model.Name;
+                        db.Users.Add(user);
+                        db.SaveChanges();
+                    }
+                    else
+                    {
+                        return RedirectToAction("Registration");
+                    }
                 }
-
-                return RedirectToAction("Login", "Auth");
             }
             else
             {
                 ModelState.AddModelError("", "One or more fields have been");
             }
-
             return View();
         }
-       
     }
 }

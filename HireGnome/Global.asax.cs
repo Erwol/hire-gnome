@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
 using HireGnome.App_Start;
+using System.Data.Entity;
 
 namespace HireGnome
 {
@@ -12,6 +13,7 @@ namespace HireGnome
     {
         protected void Application_Start()
         {
+            Database.SetInitializer<MainDbContext>(null); // Restart DB Migrations 
             AreaRegistration.RegisterAllAreas();
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
