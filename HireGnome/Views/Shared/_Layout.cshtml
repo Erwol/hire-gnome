@@ -30,11 +30,21 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav navbar-right">
+                    @if (!User.Identity.IsAuthenticated)
+                    {
+                        <li>
+                            <a href="@Url.Action("Registration", "Auth")">Register</a>
+                        </li>
+
+                    }
+                    else
+                    {
                     <li>
                         <a href="@Url.Action("Logout", "Auth")">
                             Logout
                         </a>
                     </li>
+                    }
                 </ul>
             </div>
         </div>

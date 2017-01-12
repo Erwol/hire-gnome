@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using HireGnome.Models;
 using System.Security.Claims; // Credential validation
+using HireGnome.CustomLibraries; // De/Encrypt
 
 namespace HireGnome.Controllers
 {
@@ -34,20 +35,40 @@ namespace HireGnome.Controllers
                 return View(model); //Returns the view with the input values so that the user doesn't have to retype again
             }
 
-            if (model.Email == "admin@admin.com" && model.Password == "123456")
+            using(var db = new MainDbContext())
             {
-                var identity = new ClaimsIdentity(new[] {
-                new Claim(ClaimTypes.Name, "Ernesto"),
-                new Claim(ClaimTypes.Email, "admin@admin.com"),
-                new Claim(ClaimTypes.Country, "Spain")
-                }, "ApplicationCookie");
+                var emailCheck = db.Users.FirstOrDefault(u => u.Email == model.Email);
+                var getPassword = db.Users.Where(u => u.Email == model.Email).Select(u => u.Password);
 
-                var ctx = Request.GetOwinContext();
-                var authManager = ctx.Authentication;
-                authManager.SignIn(identity);
+                var materializePassword = getPassword.ToList();
+                var password = materializePassword[0];
+                var decryptedPassword = CustomDecrypt.Decrypt(password);
 
-                // return Redirect(GetRedirectUrl(model.ReturnUrl));
-                return RedirectToAction("Index", "Home");
+
+                if(model.Email != null && model.Password == decryptedPassword)
+                {
+                    var getName = db.Users.Where(u => u.Email == model.Email).Select(u => u.Name);
+                    var materializeName = getName.ToList();
+                    var name = materializeName[0];
+
+                    var getCountry = db.Users.Where(u => u.Email == model.Email).Select(u => u.Country);
+                    var materializeCountry = getCountry.ToList();
+                    var country = materializeCountry[0];
+
+                    var identity = new ClaimsIdentity(new[] {
+                        new Claim(ClaimTypes.Name, name),
+                        new Claim(ClaimTypes.Country, country),
+                        new Claim(ClaimTypes.Email, model.Email) // Or materialize email ...
+                    }, "ApplicationCookie");
+
+
+                    var ctx = Request.GetOwinContext();
+                    var authManager = ctx.Authentication;
+
+                    authManager.SignIn(identity);
+
+                    return RedirectToAction("Index", "Home");
+                }
             }
             ModelState.AddModelError("", "Invalid email or password...");
             return View(model); //Should always be declared on the end of an action method
@@ -65,8 +86,23 @@ namespace HireGnome.Controllers
             {
                 using(var db = new MainDbContext())
                 {
+                    var encryptedPassword = CustomEncrypt.Encrypt(model.Password);
+                    var user = db.Users.Create();
 
+                    user.Email = model.Email;
+                    user.Password = encryptedPassword;
+                    user.Country = model.Country;
+                    user.Name = model.Name;
+
+                    db.Users.Add(user);
+                    db.SaveChanges();
                 }
+
+                return RedirectToAction("Login", "Auth");
+            }
+            else
+            {
+                ModelState.AddModelError("", "One or more fields have been");
             }
 
             return View();

@@ -4,11 +4,16 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace HireGnome.Models
 {
     public class Users
     {
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        [Key] // Error compiling 
+        public int Id { get; set; }
+
         [Required]
         [DataType(DataType.EmailAddress)]
         public string Email { get; set; }
@@ -16,9 +21,6 @@ namespace HireGnome.Models
         [Required]
         [DataType(DataType.Password)] // Masked field
         public string Password { get; set; }
-
-        [HiddenInput(DisplayValue = false)] // Temporary data storage
-        public string ReturnUrl { get; set; }
 
         public string Name { get; set; }
 
