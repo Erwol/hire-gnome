@@ -3,28 +3,34 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace HireGnome.Models
 {
     public class Products
     {
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Key]
-        int id { get; set; }
+        public int Id { get; set; } // Without public
 
         [Required]
         public string Details { get; set; }
 
+        public string Public { get; set; }
+
         [Required]
         public string Name { get; set; }
+        
+        public string AddedDate { get; set; }
+        public string ModifiedDate { get; set; }
+
+        //[DataType(DataType.Date)]
+        //public DateTime ModifiedDate { get; set; }
 
         [Required]
-        [DataType(DataType.Date)]
-        public DateTime AddedDate { get; set; }
+        public double Price { get; set; }
 
-        [Required]
-        public float Price { get; set; }
-
-        [Range(0, 1)]
-        public float Offer { get; set; }
+        [Range(0, 100)]
+        public double Offer { get; set; }
     }
 }

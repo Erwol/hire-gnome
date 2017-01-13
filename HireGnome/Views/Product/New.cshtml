@@ -1,0 +1,17 @@
+﻿@model HireGnome.Models.Products
+@{
+    ViewBag.Title = "New";
+}
+
+<h2>New product</h2>
+
+@using (Html.BeginForm())
+{
+    <span>Name of the new product:</span> <input type="text" name="name" /><br />
+    <span>Description of the product:</span> <input type="text" name="details" /><br />
+    <span>Price of the product:</span> <input min="0" type="number" name="price" step="0.01"/><br /> <!--Two decimals expected-->
+    <span>Make product public?</span> <input type="checkbox" name="check_public" /><br />
+    <span>Offer in percentaje, over the price:</span> <input type="range" id="range" name="offer" min="0" max="100" step="1" value="5" />
+    <input type="submit" value="Add Product" />
+}
+

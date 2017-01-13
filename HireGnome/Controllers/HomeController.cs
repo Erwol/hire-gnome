@@ -87,6 +87,9 @@ namespace HireGnome.Controllers
 
             model = db.Lists.Find(id);
 
+            if (model == null)
+                return HttpNotFound();
+
             date_posted = model.Date_Posted;
             time_posted = model.Time_Posted;
 

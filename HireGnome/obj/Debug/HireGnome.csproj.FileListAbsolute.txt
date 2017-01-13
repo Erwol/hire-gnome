@@ -37,7 +37,6 @@ C:\Users\Ernesto\Dropbox\Workspaces\express\HireGnome\HireGnome\bin\System.Web.W
 C:\Users\Ernesto\Dropbox\Workspaces\express\HireGnome\HireGnome\bin\System.Web.Webpages.Razor.xml
 C:\Users\Ernesto\Dropbox\Workspaces\express\HireGnome\HireGnome\bin\System.Web.Helpers.xml
 C:\Users\Ernesto\Dropbox\Workspaces\express\HireGnome\HireGnome\bin\System.Web.Mvc.xml
-C:\Users\Ernesto\Dropbox\Workspaces\express\HireGnome\HireGnome\obj\Debug\HireGnome.csprojResolveAssemblyReference.cache
 C:\Users\Ernesto\Dropbox\Workspaces\express\HireGnome\HireGnome\obj\Debug\HireGnome.dll
 C:\Users\Ernesto\Dropbox\Workspaces\express\HireGnome\HireGnome\obj\Debug\HireGnome.pdb
 C:\Users\Ernesto\Dropbox\Workspaces\express\HireGnome\HireGnome\bin\EntityFramework.dll
@@ -58,3 +57,4 @@ C:\Users\Ernesto\Dropbox\Workspaces\express\HireGnome\HireGnome\bin\roslyn\Syste
 C:\Users\Ernesto\Dropbox\Workspaces\express\HireGnome\HireGnome\bin\roslyn\System.IO.FileSystem.Primitives.dll
 C:\Users\Ernesto\Dropbox\Workspaces\express\HireGnome\HireGnome\bin\roslyn\vbc.exe.config
 C:\Users\Ernesto\Dropbox\Workspaces\express\HireGnome\HireGnome\bin\roslyn\vbc.rsp
+C:\Users\Ernesto\Dropbox\Workspaces\express\HireGnome\HireGnome\obj\Debug\HireGnome.csprojResolveAssemblyReference.cache
