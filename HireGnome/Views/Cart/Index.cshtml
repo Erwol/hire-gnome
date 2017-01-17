@@ -1,0 +1,29 @@
+﻿@model IEnumerable<HireGnome.Models.Carts>
+@{
+    ViewBag.Title = "Index";
+    var username = User.Identity.Name;
+}
+
+<h2>@username shopping carts</h2>
+<p>A single user may have more than one shopping cart</p>
+
+@if(Model.Count() == 0)
+{
+    <h2>Looks like you don't have any shopping cart</h2>
+}
+
+@using (Html.BeginForm())
+{
+    <h3>Create a new shopping cart</h3>
+    <span>Name the cart:</span> <input type="text" name="cart_name" placeholder="Christmas gifts..."/><br />
+    <span>Make it public? </span> <input type="checkbox" name="cart_public"/><br />
+
+    <input type="submit" value="Add Item" />
+}
+
+@foreach (var item in Model)
+{
+    <h3>@item.Name</h3>
+    <a href="@Url.Action("Details", "Cart")/@Html.DisplayFor(modelItem => item.Id)">Details</a>
+}
+

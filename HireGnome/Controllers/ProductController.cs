@@ -98,6 +98,7 @@ namespace HireGnome.Controllers
                         product.Public = "YES";
 
 
+
                     db.Entry(product).State = EntityState.Modified;
                     db.SaveChanges();
                     return RedirectToAction("Index");

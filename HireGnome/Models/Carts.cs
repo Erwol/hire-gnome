@@ -15,14 +15,18 @@ namespace HireGnome.Models
         public virtual ICollection<Products> Products { get; set; }
 
         // Cart < 1 - 1 > User
+        // [Required] Let's try to create a shopping cart for anonymous users (Doubt)
         public int UserId { get; set; }
         public virtual Users User { get; set; }
 
-        [Required]
+        public string Name { get; set; }        // A way to personalize the cart
+        public string Public { get; set; }      // Cart listed in "Inspiration" tab
+        public string MainCart { get; set; }    // Tells the app that this cart should be the more accesible
+
         [DataType(DataType.Date)]
         public DateTime CreationDate { get; set; }
 
-        [Required]
+        // [Required]
         [DataType(DataType.Date)]
         public DateTime ModificationDate { get; set; }
     }
