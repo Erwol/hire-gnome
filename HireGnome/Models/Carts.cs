@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace HireGnome.Models
 {
@@ -21,13 +22,22 @@ namespace HireGnome.Models
 
         public string Name { get; set; }        // A way to personalize the cart
         public string Public { get; set; }      // Cart listed in "Inspiration" tab
+        public string Billed { get; set; }      // A cart that has been shipped
         public string MainCart { get; set; }    // Tells the app that this cart should be the more accesible
 
-        [DataType(DataType.Date)]
+        [DataType(DataType.DateTime)]
         public DateTime CreationDate { get; set; }
 
         // [Required]
-        [DataType(DataType.Date)]
+        [DataType(DataType.DateTime)]
         public DateTime ModificationDate { get; set; }
+
+        /*
+        [ForeignKey("Bill")]
+        public int BillId { get; set; }
+
+        public virtual Bills Bill { get; set; }
+        */
+
     }
 }

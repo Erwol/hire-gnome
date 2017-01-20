@@ -32,5 +32,7 @@ namespace HireGnome.Models
 
         [Range(0, 100)]
         public double Offer { get; set; }
+
+        public virtual ICollection<Carts> Carts { get; set; }
     }
 }

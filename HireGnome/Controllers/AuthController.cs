@@ -59,7 +59,8 @@ namespace HireGnome.Controllers
                     var identity = new ClaimsIdentity(new[] {
                     new Claim(ClaimTypes.Name, name),
                     new Claim(ClaimTypes.Email, email),
-                    new Claim(ClaimTypes.Country, country)
+                    new Claim(ClaimTypes.Country, country),
+                    new Claim(ClaimTypes.Role, "admin")
                 },
                         "ApplicationCookie");
 
@@ -102,6 +103,7 @@ namespace HireGnome.Controllers
                     {
                         var encryptedPassword = CustomEncrypt.Encrypt(model.Password);
                         var user = db.Users.Create();
+                        //user.Rol = db.Roles.
                         user.Email = model.Email;
                         user.Password = encryptedPassword;
                         user.Country = model.Country;

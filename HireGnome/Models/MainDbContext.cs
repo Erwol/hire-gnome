@@ -22,12 +22,37 @@ namespace HireGnome
 
         public DbSet<Users> Users { get; set; } // This tells the app that is the representation of the table with its exact name
 
+        public DbSet<Roles> Roles { get; set; }
+
         protected override void OnModelCreating(DbModelBuilder mb)
         {
-            // mb.Entity<User>().HasKey(u => u.UserId);
-            //mb.Entity<Task>().HasKey(t => t.TaskId);
-            mb.Entity<Carts>().HasMany(x => x.Products).WithMany();
-            //modelBuilder.Entity<Person>().HasMany(x => x.Roles).WithMany();
+            
+            // Many to many
+            mb.Entity<Carts>().
+                HasMany(x => x.Products).
+                WithMany(x => x.Carts);
+
+            // One to many
+            mb.Entity<Roles>().
+                HasMany<Users>(x => x.Users).
+                WithRequired(x => x.Rol).
+                HasForeignKey(x => x.RolId);
+
+            /*
+            mb.Entity<Users>().
+                HasMany<Bills>(x => x.Bills).
+                WithOptional(x => x.User). // One user may not have any bill
+                HasForeignKey(x => x.UserId);
+
+            // One to one
+            mb.Entity<Carts>().
+                HasOptional(x => x.Bill).   // A cart has one optional bill attached...
+                WithRequired(x => x.Cart);  // And a Bill cannot be stored without a Cart attached
+
+
+    */
+                
+              
 
         }
     }

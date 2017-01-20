@@ -11,7 +11,7 @@ namespace HireGnome.Models
     public class Users
     {
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        [Key] // Error compiling 
+        [Key]  
         public int Id { get; set; }
 
         [Required]
@@ -25,5 +25,13 @@ namespace HireGnome.Models
         public string Name { get; set; }
 
         public string Country { get; set; }
+
+        // One to many relation with roles
+        public int RolId { get; set; }
+        [ForeignKey("RolId")]
+        public virtual Roles Rol { get; set; }
+
+        // The bills of the user
+        //public virtual ICollection<Bills> Bills { get; set; }
     }
 }
