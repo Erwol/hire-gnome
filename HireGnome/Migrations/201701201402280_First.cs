@@ -66,7 +66,7 @@ namespace HireGnome.Migrations
 
             Sql("INSERT INTO Roles (Rol, Description) VALUES ('admin', 'Admin rol')");
             Sql("INSERT INTO Roles (Rol, Description) VALUES ('user', 'User rol')");
-            Sql("INSERT INTO Users (Email, Password, Name, Country, RolId) VALUES ('admin@hiregnome.com', 'admin', 'admin', 'Spain', 1)");
+            Sql("INSERT INTO Users (Email, Password, Name, Country, RolId) VALUES ('admin@admin.com', 'G4/XovvSDFEMYXVtyp3q0+Hfq4pEzy7m3pcoUvno7Bc=', 'admin', 'Spain', 1)");
 
             CreateTable(
                 "dbo.Lists",

@@ -56,11 +56,14 @@ namespace HireGnome.Controllers
                     var materializeEmail = getEmail.ToList();
                     var email = materializeEmail[0];
 
+                    // The framework directly takes the full Rol object
+                    var userRol = db.Users.Where(x => x.Email == model.Email).Select(x => x.Rol).FirstOrDefault();
+
                     var identity = new ClaimsIdentity(new[] {
                     new Claim(ClaimTypes.Name, name),
                     new Claim(ClaimTypes.Email, email),
                     new Claim(ClaimTypes.Country, country),
-                    new Claim(ClaimTypes.Role, "admin")
+                    new Claim(ClaimTypes.Role, userRol.Rol),
                 },
                         "ApplicationCookie");
 
@@ -103,7 +106,8 @@ namespace HireGnome.Controllers
                     {
                         var encryptedPassword = CustomEncrypt.Encrypt(model.Password);
                         var user = db.Users.Create();
-                        //user.Rol = db.Roles.
+                        var rol = db.Roles.Where(x => x.Rol == "user").FirstOrDefault();
+                        user.Rol = rol; // If we don't add FirstOrDefault() then the type of the Object is IQueryable
                         user.Email = model.Email;
                         user.Password = encryptedPassword;
                         user.Country = model.Country;
