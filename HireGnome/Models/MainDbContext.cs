@@ -18,11 +18,13 @@ namespace HireGnome
 
         public DbSet<Carts> Carts { get; set; }
 
-        public DbSet<Lists> Lists { get; set; } // We've to add this here in order to make db queries
-
         public DbSet<Users> Users { get; set; } // This tells the app that is the representation of the table with its exact name
 
         public DbSet<Roles> Roles { get; set; }
+
+        public DbSet<Names> Names { get; set; }
+
+        // public DbSet<Images> Images { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder mb)
         {
@@ -38,6 +40,11 @@ namespace HireGnome
                 WithRequired(x => x.Rol).
                 HasForeignKey(x => x.RolId);
 
+            // Every cart must be attached to a user, but a user (ie Admin) could not have any cart
+            mb.Entity<Users>().
+                HasMany<Carts>(x => x.Carts).
+                WithRequired(x => x.User).
+                HasForeignKey(x => x.UserId);
             /*
             mb.Entity<Users>().
                 HasMany<Bills>(x => x.Bills).

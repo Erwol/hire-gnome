@@ -1,0 +1,3 @@
+INSERT INTO Roles (Rol, Description) VALUES ('admin', 'Admin rol');
+INSERT INTO Roles (Rol, Description) VALUES ('user', 'User rol');
+INSERT INTO Users (Email,Password,Name,RolId,IsActive)VALUES('admin@admin.com','G4/XovvSDFEMYXVtyp3q0+Hfq4pEzy7m3pcoUvno7Bc=','admin',1,1);

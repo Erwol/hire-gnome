@@ -58,5 +58,12 @@ C:\Users\Ernesto\Dropbox\Workspaces\express\HireGnome\HireGnome\bin\System.Web.M
 C:\Users\Ernesto\Dropbox\Workspaces\express\HireGnome\HireGnome\obj\Debug\HireGnome.dll
 C:\Users\Ernesto\Dropbox\Workspaces\express\HireGnome\HireGnome\obj\Debug\HireGnome.pdb
 C:\Users\Ernesto\Dropbox\Workspaces\express\HireGnome\HireGnome\obj\Debug\HireGnome.csprojResolveAssemblyReference.cache
-C:\Users\Ernesto\Dropbox\Workspaces\express\HireGnome\HireGnome\obj\Debug\HireGnome.Migrations.First.resources
 C:\Users\Ernesto\Dropbox\Workspaces\express\HireGnome\HireGnome\obj\Debug\HireGnome.csproj.GenerateResource.Cache
+C:\Users\Ernesto\Dropbox\Workspaces\express\HireGnome\HireGnome\bin\PagedList.dll
+C:\Users\Ernesto\Dropbox\Workspaces\express\HireGnome\HireGnome\bin\PagedList.Mvc.dll
+C:\Users\Ernesto\Dropbox\Workspaces\express\HireGnome\HireGnome\bin\PagedList.xml
+C:\Users\Ernesto\Dropbox\Workspaces\express\HireGnome\HireGnome\bin\PagedList.Mvc.xml
+C:\Users\Ernesto\Dropbox\Workspaces\express\HireGnome\HireGnome\obj\Debug\HireGnome.Properties.Resources.resources
+C:\Users\Ernesto\Dropbox\Workspaces\express\HireGnome\HireGnome\bin\HireGnome.Domain.dll
+C:\Users\Ernesto\Dropbox\Workspaces\express\HireGnome\HireGnome\bin\HireGnome.Domain.pdb
+C:\Users\Ernesto\Dropbox\Workspaces\express\HireGnome\HireGnome\obj\Debug\HireGnome.Migrations.First.resources

@@ -1,0 +1,5 @@
+C:\Users\Ernesto\Dropbox\Workspaces\express\HireGnome\HireGnome.Domain\obj\Debug\HireGnome.Domain.csprojResolveAssemblyReference.cache
+C:\Users\Ernesto\Dropbox\Workspaces\express\HireGnome\HireGnome.Domain\bin\Debug\HireGnome.Domain.dll
+C:\Users\Ernesto\Dropbox\Workspaces\express\HireGnome\HireGnome.Domain\bin\Debug\HireGnome.Domain.pdb
+C:\Users\Ernesto\Dropbox\Workspaces\express\HireGnome\HireGnome.Domain\obj\Debug\HireGnome.Domain.dll
+C:\Users\Ernesto\Dropbox\Workspaces\express\HireGnome\HireGnome.Domain\obj\Debug\HireGnome.Domain.pdb

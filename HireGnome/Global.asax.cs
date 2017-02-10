@@ -19,7 +19,31 @@ namespace HireGnome
             //Database.SetInitializer<MainDbContext>(null); // Doesn't do anything
             //Database.SetInitializer<MainDbContext>(new MigrateDatabaseToLatestVersion<MainDbContext, HireGnome.Migrations.Configuration>()); // Restart DB Migrations 
             //Database.SetInitializer<MainDbContext>(new DropCreateDatabaseIfModelChanges<MainDbContext>());
-            Database.SetInitializer<MainDbContext>(new DropCreateDatabaseAlways<MainDbContext>());
+            //Database.SetInitializer<MainDbContext>(new DropCreateDatabaseAlways<MainDbContext>());
+            //Database.SetInitializer<MainDbContext>(new );
+        }
+
+
+        public static void RegisterRoutes(RouteCollection routes)
+        {
+            // routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
+            // https://msdn.microsoft.com/en-us/library/cc668201.aspx#adding_routes_to_an_mvc_application
+            routes.MapRoute(
+                "Home",                                              // Route name 
+                "{Kurs1}/{Home}",                           // URL with parameters 
+                new { controller = "Kurs1", action = "Home"}  // Parameter defaults
+            );
+            routes.MapRoute(
+                "Gallery",                                              // Route name 
+                "{Kurs1}/{Gallery}",                           // URL with parameters 
+                new { controller = "Kurs1", action = "Gallery" }  // Parameter defaults
+            );
+            routes.MapRoute(
+                "Home",                                              // Route name 
+                "{Kurs1}/{Contact}",                           // URL with parameters 
+                new { controller = "Kurs1", action = "Contact" }  // Parameter defaults
+            );
+
         }
     }
 }

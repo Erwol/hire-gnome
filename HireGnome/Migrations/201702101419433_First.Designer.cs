@@ -13,7 +13,7 @@ namespace HireGnome.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "201701201402280_First"; }
+            get { return "201702101419433_First"; }
         }
         
         string IMigrationMetadata.Source

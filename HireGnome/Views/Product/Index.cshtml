@@ -3,7 +3,7 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Availables Gnomes for selling</h2>
+<h2>Our gnomes</h2>
 
 
 <div class="container-fluid"> <!--Full width container-->
@@ -18,6 +18,7 @@
                 <a href="@Url.Action("Edit", "Product")/@Html.DisplayFor(modelItem => item.Id)">Edit</a>
                 <a onclick="deleteProduct(@Html.DisplayFor(modelItem => item.Id))">Delete</a>
                 <a onclick="hideProduct(@Html.DisplayFor(modelItem => item.Id))">Hide</a>
+                <a href="@Url.Action("Add", "Cart")/@Html.DisplayFor(modelItem => item.Id)">Add product</a>
             </div>
         }
     </div>

@@ -6,6 +6,7 @@ using System.Security.Claims;
 using System.Web;
 using System.Web.Mvc;
 using HireGnome.CustomLibraries;
+using HireGnome.ViewModels
 
 namespace HireGnome.Controllers
 {
@@ -16,21 +17,22 @@ namespace HireGnome.Controllers
         [HttpGet]
         public ActionResult Index()
         {
-            var db = new MainDbContext();
-            return View(db.Lists.Where(x => x.Public == "YES").ToList());
+            return View();
         }
 
         [HttpGet]
         public ActionResult Login()
         {
-            return View();
+            LoginViewModel model = new LoginViewModel();
+            return View(model);
         }
 
         [HttpPost]
-        public ActionResult Login(Users model)
+        public ActionResult Login(LoginViewModel model)
         {
             if (!ModelState.IsValid) //Checks if input fields have the correct format
             {
+                ModelState.AddModelError("", "Invalid email or password");
                 return View(model); //Returns the view with the input values so that the user doesn't have to retype again
             }
 
@@ -60,19 +62,18 @@ namespace HireGnome.Controllers
                     var userRol = db.Users.Where(x => x.Email == model.Email).Select(x => x.Rol).FirstOrDefault();
 
                     var identity = new ClaimsIdentity(new[] {
-                    new Claim(ClaimTypes.Name, name),
-                    new Claim(ClaimTypes.Email, email),
-                    new Claim(ClaimTypes.Country, country),
-                    new Claim(ClaimTypes.Role, userRol.Rol),
-                },
+                        new Claim(ClaimTypes.Name, name),
+                        new Claim(ClaimTypes.Email, email),
+                        new Claim(ClaimTypes.Country, country),
+                        new Claim(ClaimTypes.Role, userRol.Rol),
+                    },
                         "ApplicationCookie");
 
                     var ctx = Request.GetOwinContext();
                     var authManager = ctx.Authentication;
 
                     authManager.SignIn(identity);
-
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("Index", "Product");
                 }
             }
 
@@ -106,14 +107,24 @@ namespace HireGnome.Controllers
                     {
                         var encryptedPassword = CustomEncrypt.Encrypt(model.Password);
                         var user = db.Users.Create();
-                        var rol = db.Roles.Where(x => x.Rol == "user").FirstOrDefault();
+                        var rol = db.Roles.Where(x => x.Rol == "admin").FirstOrDefault();
                         user.Rol = rol; // If we don't add FirstOrDefault() then the type of the Object is IQueryable
                         user.Email = model.Email;
                         user.Password = encryptedPassword;
                         user.Country = model.Country;
                         user.Name = model.Name;
+                        user.FirstName = model.FirstName;
+                        user.SecondName = model.SecondName;
+                        user.IsActive = true;
+
+                        var defaultShoppingCart = db.Carts.Create();
+                        defaultShoppingCart.User = user;
+                        defaultShoppingCart.Name = "Shopping cart of " + user.Name + ".";
+
+                        db.Carts.Add(defaultShoppingCart);
                         db.Users.Add(user);
                         db.SaveChanges();
+                        return RedirectToAction("Login");
                     }
                     else
                     {

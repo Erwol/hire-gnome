@@ -1,0 +1,38 @@
+﻿@model IEnumerable<HireGnome.Models.Carts>
+@{
+    ViewBag.Title = "MyCarts";
+    var MainCart = Model.Where(x => x.IsMainCart == true);
+}
+
+<h2>Shopping carts of the user @User.Identity.Name</h2>
+
+<h3>Actual main cart: @MainCart.Name</h3>
+<button onclick="displayProducts(@MainCart)">Display all the products contained in the main cart</button>
+
+
+
+<script>
+    function displayProducts(cart){
+        // Hacer llamada al modelo
+    }
+
+
+</script>
+
+<div class="container-fluid">
+    <!--Full width container-->
+    <div class="row">
+        @foreach (var item in Model)
+        {
+            <div class="col-sm-4" style="background-color:lavender;">
+                <p>@Html.DisplayFor(modelItem => item.Name)</p>
+                <!--
+                <a href="@Url.Action("Edit", "Product")/@Html.DisplayFor(modelItem => item.Id)">Edit</a>
+                <a onclick="deleteProduct(@Html.DisplayFor(modelItem => item.Id))">Delete</a>
+                <a onclick="hideProduct(@Html.DisplayFor(modelItem => item.Id))">Hide</a>
+                <a href="@Url.Action("Add", "Cart")/@Html.DisplayFor(modelItem => item.Id)">Add product</a>
+                    -->
+            </div>
+        }
+    </div>
+</div>
