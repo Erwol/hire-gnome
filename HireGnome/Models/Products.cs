@@ -58,8 +58,6 @@ namespace HireGnome.Models
             Offer = 0;
             IsPublic = true;
             CreationDate = DateTime.Now;
-            ModificationDate = DateTime.Now;
-            Image = "https://photos.smugmug.com/Travel/Poland/Wroclaw-Poland/i-Vrd5Vp8/0/L/Wroclaw-Poland-Europe-2919-L.jpg";
         }
     }
 }

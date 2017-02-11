@@ -1,27 +1,45 @@
 ﻿@model HireGnome.Models.Products
 @{
-    ViewBag.Title = "EditGnome";
+    ViewBag.Title = "Edit Gnome";
 }
 
-<h2>Edit @Model.Name the Gnome details:</h2>
+<h2>Edit @Model.Name</h2>
+<ul>
+    <li><b>Creation date: </b>@Model.CreationDate</li>
+    <li><b>Last update: </b>@Model.ModificationDate</li>
+</ul>
 
-@using (Html.BeginForm())
+@Html.ValidationSummary(true)
+@using (Html.BeginForm(new { @class = "form-horizontal" }))
 {
-    <span>Name of the new product:</span> <input type="text" name="name" value="@Model.Name" /><br />
-    <span>Description of the product:</span> <input type="text" name="details" value="@Model.Details" /><br />
-    <span>Price of the product:</span> <input min="0" type="number" name="price" step="0.01" value="@Model.Price" /><br /> <!--Two decimals expected-->
-    <span>Make product public?</span>
-    if (Model.IsPublic)
-    {
-        <input type="checkbox" name="check_public" checked />
-    }
-    else
-    {
-        <input type="checkbox" name="check_public" />
-    }
-    <br />
-    <span>Offer in percentaje, over the price:</span> <input type="range" id="range" name="offer" min="0" max="100" step="1" value="@Model.Offer" onchange="document.getElementById('rangeValLabel').innerHTML = this.value;" />
-    <em id="rangeValLabel" style="font-style: normal;"></em><br />
-    <input type="submit" value="Save changes" />
-}
+    @Html.LabelFor(u => u.Name)
+    @Html.TextBoxFor(u => u.Name, new { @class = "form-control " })
 
+    @Html.LabelFor(u => u.Details)
+    @Html.TextBoxFor(u => u.Details, new { @class = "form-control " })
+
+    @Html.LabelFor(u => u.Price)
+    @Html.EditorFor(u => u.Price, new { @class = "form-control " })
+
+    @Html.LabelFor(u => u.Offer)
+    @Html.EditorFor(u => u.Offer, new { @class = "form-control " })
+    <br />
+    @Html.LabelFor(u => u.IsPublic)
+    @Html.EditorFor(u => u.IsPublic, new { @class = "form-control " })
+    <br />
+    @Html.LabelFor(u => u.Image)
+    @Html.TextBoxFor(u => u.Image, new { @class = "form-control " })
+
+    @Html.LabelFor(u => u.Latitude)
+    @Html.EditorFor(u => u.Latitude, new { @class = "form-control " })
+
+    @Html.LabelFor(u => u.Longitude)
+    @Html.EditorFor(u => u.Longitude, new { @class = "form-control " })
+
+    <p>
+        <button type="Submit" class="btn btn-primary btn-lg btn-block login-button">
+            Save it
+        </button>
+    </p>
+
+}

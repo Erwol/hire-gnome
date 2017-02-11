@@ -1,7 +1,95 @@
-﻿
+﻿@model HireGnome.ViewModels.ShowGnomeViewModel
 @{
     ViewBag.Title = "Show";
 }
 
-<h2>Gnome details</h2>
+<style>
+    #map {
+        height: 400px;
+        width: 100%;
+       }
+</style>
+
+<div class="container">
+    @if (User.IsInRole("admin"))
+    {
+        <div class="row">
+            <div class="col-sm-4">
+                <h2>Admin options</h2>
+            </div>
+            <div class="col-sm-2">
+                <button class="btn btn-success" onclick="editGnome(@Model.Id)">
+                    Edit
+                </button>
+            </div>
+            <div class="sol-sm-2">
+                <button class="btn btn-danger" onclick="deleteGnome(@Model.Id)">
+                    Delete
+                </button>
+            </div>
+            <div class="sol-sm-2">
+                <button class="btn btn-primary" onclick="hideGnome(@Model.Id)">
+                    Hide / Un-hide
+                </button>
+            </div>
+        </div>
+        <hr />
+    }
+    <div class="row">
+        
+        <div class="col-sm-4">
+            
+            <img src="@Model.Image"alt="@Model.Name" width="100%">
+        </div>
+        <div class="col-sm-8">
+            <div class="panel-title text-center">
+                @if (!Model.IsPublic)
+                {
+                    <h2 style="color:red">@Model.Name ~ Disabled Gnome</h2>
+                }
+                else
+                {
+                    <h2>@Model.Name</h2>
+                }
+                
+                
+            </div>
+            <p>
+                @Model.Details
+            </p>
+            @if (Model.Offer != 0)
+            {
+                <p><b>You're lucky, this Gnome is on Sale!</b></p>
+                <button class="btn btn-success btn-block">Before: <strike>@Model.Price$</strike> Now: @Model.ReducedPrice$<br /> <b>Get it now!</b></button>
+            }
+            
+             
+        </div>
+    </div>
+    <hr />
+    <div class="row">
+        <div class="col-sm-12">
+            <div id="map"></div>
+        </div>
+       
+    </div>
+
+    <script>
+      function initMap() {
+        var pos = {lat: @Model.Latitude, lng: @Model.Longitude};
+        var map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 4,
+          center: pos
+        });
+        var marker = new google.maps.Marker({
+          position: pos,
+          map: map
+        });
+      }
+    </script>
+
+    <script async defer
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDHRTXhawcUlfd6ULU_jXBoWLL-hhbY03Y&callback=initMap">
+    </script>
+</div>
 

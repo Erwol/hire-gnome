@@ -1,0 +1,46 @@
+﻿
+@{
+    Layout = null;
+}
+<style>
+    #map{
+        width: 100%;
+        height: 400px;
+    }
+</style>
+<div id="map"></div>
+
+
+
+<script>
+    // Getting the data
+    window.addEventListener("load", function(){
+        var request = new XMLHttpRequest();
+        request.open("GET", "/Product/GetGnomes");
+        request.onreadystatechange = function () {
+            if (request.readyState == XMLHttpRequest.DONE) {
+                var gnomes = JSON.parse(request.responseText);
+                load_map(gnomes);
+            };
+        };
+        request.send();
+    });
+
+    function initMap() {
+        var infowindow; // Must be global to the function in order to close all when selecting a new one
+        var map = new google.maps.Map(document.getElementById('map'), {
+            zoom: 15,
+            center: { lat: 51.11071, lng: 17.033873 }
+        });
+    }
+
+    
+
+   
+
+</script>
+
+<script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDHRTXhawcUlfd6ULU_jXBoWLL-hhbY03Y&callback=initMap">
+</script>
+

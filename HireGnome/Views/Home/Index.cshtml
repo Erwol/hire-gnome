@@ -3,7 +3,23 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Find the Gnome you've looking for!</h2>
+<style>
+   .map{
+       width:100%;
+       height:500px;
+   }
+</style>
+<div class="panel-title text-center">
+    <h2>Bring home your favorite Gnome</h2>
+    <hr />
+</div>
+
+
+<!-- Gets the data from a partial View. The coordinates from that partial view are taken from a Json return method located in /Product/GetAllCoordinates-->
+@Html.Partial("MainMap")
+
+
+
 
 
 

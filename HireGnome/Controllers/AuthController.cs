@@ -6,7 +6,7 @@ using System.Security.Claims;
 using System.Web;
 using System.Web.Mvc;
 using HireGnome.CustomLibraries;
-using HireGnome.ViewModels
+using HireGnome.ViewModels;
 
 namespace HireGnome.Controllers
 {
@@ -39,6 +39,11 @@ namespace HireGnome.Controllers
             using (var db = new MainDbContext())
             {
                 var emailCheck = db.Users.FirstOrDefault(u => u.Email == model.Email);
+                if(emailCheck == null)
+                {
+                    ModelState.AddModelError("", model.Email + " is not registered in our database");
+                    return View(model); //Returns the view with the input values so that the user doesn't have to retype again
+                }
                 var getPassword = db.Users.Where(u => u.Email == model.Email).Select(u => u.Password);
                 var materializePassword = getPassword.ToList();
                 var password = materializePassword[0];
@@ -96,40 +101,52 @@ namespace HireGnome.Controllers
         }
 
         [HttpPost]
-        public ActionResult Registration(Users model)
+        public ActionResult Registration(RegistrationViewModel model)
         {
             if (ModelState.IsValid)
             {
                 using (var db = new MainDbContext())
                 {
-                    var queryUser = db.Users.FirstOrDefault(u => u.Email == model.Email);
-                    if (queryUser == null)
+                    // Make sure this's a unique identity
+                    var checkMail = db.Users.FirstOrDefault(u => u.Email == model.Email);
+                    var checkUser = db.Users.FirstOrDefault(u => u.Name == model.Name);
+                    var error = false;
+                    if(checkMail != null)
                     {
-                        var encryptedPassword = CustomEncrypt.Encrypt(model.Password);
-                        var user = db.Users.Create();
-                        var rol = db.Roles.Where(x => x.Rol == "admin").FirstOrDefault();
-                        user.Rol = rol; // If we don't add FirstOrDefault() then the type of the Object is IQueryable
-                        user.Email = model.Email;
-                        user.Password = encryptedPassword;
-                        user.Country = model.Country;
-                        user.Name = model.Name;
-                        user.FirstName = model.FirstName;
-                        user.SecondName = model.SecondName;
-                        user.IsActive = true;
-
-                        var defaultShoppingCart = db.Carts.Create();
-                        defaultShoppingCart.User = user;
-                        defaultShoppingCart.Name = "Shopping cart of " + user.Name + ".";
-
-                        db.Carts.Add(defaultShoppingCart);
-                        db.Users.Add(user);
-                        db.SaveChanges();
-                        return RedirectToAction("Login");
+                        error = true;
+                        ModelState.AddModelError("", model.Email + " already exists in our database. It must be unique.");
                     }
-                    else
+                    if(checkUser != null)
                     {
-                        return RedirectToAction("Registration");
+                        error = true;
+                        ModelState.AddModelError("", model.Name + " has already been registered. Please, look for a new one.");
                     }
+                    if(error)
+                        return View();
+                    
+                    var encryptedPassword = CustomEncrypt.Encrypt(model.Password);
+                    var user = db.Users.Create();
+                    var rol = db.Roles.Where(x => x.Rol == "user").FirstOrDefault();
+                    user.Rol = rol; // If we don't add FirstOrDefault() then the type of the Object is IQueryable
+                    user.Email = model.Email;
+                    user.Password = encryptedPassword;
+                    user.Country = model.Country;
+                    user.Name = model.Name;
+                    user.FirstName = model.FirstName;
+                    user.SecondName = model.SecondName;
+                    user.IsActive = true;
+
+                    var defaultShoppingCart = db.Carts.Create();
+                    defaultShoppingCart.User = user;
+                    defaultShoppingCart.Name = "Shopping cart of " + user.Name + ".";
+
+                    db.Carts.Add(defaultShoppingCart);
+                    db.Users.Add(user);
+                    db.SaveChanges();
+                    return RedirectToAction("Login");
+                    
+                        
+                    
                 }
             }
             else

@@ -4,9 +4,11 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using HireGnome.Models;
+using HireGnome.ViewModels;
 
 namespace HireGnome.Controllers
 {
+    [Authorize(Roles = "admin")]
     public class AdminController : Controller
     {
         // GET: Admin
@@ -17,55 +19,111 @@ namespace HireGnome.Controllers
 
         public ActionResult AddGnome()
         {
-            return View();
+            CreateGnomeViewModel model = new CreateGnomeViewModel();
+            return View(model);
         }
 
         [HttpPost]
-        public ActionResult AddGnome(Products gnome)
+        public ActionResult AddGnome(CreateGnomeViewModel model)
         {
             if (ModelState.IsValid)
             {
+                bool error = false;
+                if(model.Price < 0)
+                {
+                    error = true;
+                    ModelState.AddModelError("", "Price can't be negative.");
+                }
+
+                if (model.Offer < 0 || model.Offer > 100)
+                {
+                    error = true;
+                    ModelState.AddModelError("", "The Offer must be between 0% and 100%.");
+                }
+
+                if(error)
+                    return View();
+
                 using (var db = new MainDbContext())
                 {
                     var dbProduct = db.Products.Create();
-
-                    dbProduct.Name = Request.Form["name"];
-                    dbProduct.Details = Request.Form["details"];
-                    //dbProduct.Price = double.Parse(Request.Form["price"].Replace(comas con puntos));
-                    dbProduct.Price = double.Parse(Request.Form["price"].Replace(',', '.'));
-                    dbProduct.Offer = int.Parse(Request.Form["offer"]);
-
-                    string check_public = Request.Form["check_public"];
-                    if (check_public != null) // This comes directly from the name of the view Index.csHtml
-                    {
-                        dbProduct.IsPublic = true;
-                    }
-                    else
-                    {
-                        dbProduct.IsPublic = false;
-                    }
-
+                    dbProduct.Name = model.Name;
+                    dbProduct.Details = model.Details;
+                    dbProduct.Price = model.Price;
+                    dbProduct.Offer = model.Offer;
+                    dbProduct.IsPublic = model.IsPublic;
+                    dbProduct.Image = model.Image;
                     db.Products.Add(dbProduct);
                     db.SaveChanges();
+
+                    return RedirectToAction("Show", "Product", new { gnome_id = dbProduct.Id });
                 }
+                
             }
             else
             {
                 ModelState.AddModelError("", "Wrong parameter introduced");
+                return View();
             }
-            return View();
+            
         }
 
 
         [HttpGet]
-        public ActionResult EditGnome(int gnome_id)
+        public ActionResult EditGnome(int id)
         {
+            
             using(var db = new MainDbContext())
             {
-                var model = db.Products.Find(gnome_id);
+                var model = db.Products.Find(id);
                 if (model == null)
                     return HttpNotFound();
                 return View(model);
+            }
+        }
+
+        [HttpPost]
+        public ActionResult EditGnome(Products model)
+        {
+            if (ModelState.IsValid)
+            {
+                bool error = false;
+                if (model.Price < 0)
+                {
+                    error = true;
+                    ModelState.AddModelError("", "Price can't be negative.");
+                }
+
+                if (model.Offer < 0 || model.Offer > 100)
+                {
+                    error = true;
+                    ModelState.AddModelError("", "The Offer must be between 0% and 100%.");
+                }
+
+                if (error)
+                    return View();
+
+                using (var db = new MainDbContext())
+                {
+                    var dbProduct = db.Products.Find(model.Id);
+                    dbProduct.Name = model.Name;
+                    dbProduct.Details = model.Details;
+                    dbProduct.Price = model.Price;
+                    dbProduct.Offer = model.Offer;
+                    dbProduct.IsPublic = model.IsPublic;
+                    dbProduct.CreationDate = model.CreationDate;
+                    dbProduct.ModificationDate = DateTime.Now;
+                    dbProduct.Image = model.Image;
+                    db.SaveChanges();
+
+                    return RedirectToAction("Show", "Product", new { gnome_id = dbProduct.Id });
+                }
+
+            }
+            else
+            {
+                ModelState.AddModelError("", "Wrong parameter introduced");
+                return View();
             }
         }
 
@@ -77,13 +135,10 @@ namespace HireGnome.Controllers
             var model = db.Products.Find(id);
 
             if (model == null)
-            {
                 return HttpNotFound();
-            }
 
             db.Products.Remove(model);
-            db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", "Product");
         }
 
         [HttpGet]
@@ -94,9 +149,12 @@ namespace HireGnome.Controllers
 
             if (model == null)
                 return HttpNotFound();
-            model.IsPublic = false;
+            if (model.IsPublic)
+                model.IsPublic = false;
+            else
+                model.IsPublic = true;
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("Show", "Product", new { gnome_id = model.Id });
         }
     }
 }

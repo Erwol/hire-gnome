@@ -43,7 +43,7 @@ namespace HireGnome.Controllers
 
                 var cart = db.Carts.Where(x => x.User == User && x.IsMainCart == true).FirstOrDefault();
                 cart.Products.Add(product);
-
+                db.SaveChanges();
                 return View(cart);
 
             }

@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using HireGnome.Models;
 using System.Security.Claims;
 using System.Data.Entity;
+using HireGnome.ViewModels;
 
 namespace HireGnome.Controllers
 {
@@ -16,18 +17,92 @@ namespace HireGnome.Controllers
         public ActionResult Index()
         {
             var db = new MainDbContext();
-            return View(db.Products.ToList().Where(u => u.IsPublic == true));
+            /*
+            ListGnomesViewModel gnomeList = new ListGnomesViewModel();
+            // The admin also wants the info related to hidden gnomes
+            if (User.IsInRole("admin"))
+                foreach (Products model in db.Products.ToList()){
+                    ShowGnomeViewModel gnome = new ShowGnomeViewModel();
+                    gnome.Id = model.Id;
+                    gnome.Image = model.Image;
+                    gnome.IsPublic = model.IsPublic;
+                    gnome.Name = model.Name;
+                    gnome.Offer = model.Offer;
+                    gnome.Price = model.Price;
+                    if (gnome.Offer > 0)
+                        gnome.ReducedPrice = gnome.Price * ((double)gnome.Offer / 100.0);
+                    gnome.Details = model.Details;
+                    gnome.Latitude = model.Latitude;
+                    gnome.Longitude = model.Longitude;
+                    gnomeList.Gnomes.Add(gnome);
+                }
+            else
+                foreach (Products model in db.Products.ToList().Where(u => u.IsPublic == true))
+                {
+                    ShowGnomeViewModel gnome = new ShowGnomeViewModel();
+                    gnome.Id = model.Id;
+                    gnome.Image = model.Image;
+                    gnome.IsPublic = model.IsPublic;
+                    gnome.Name = model.Name;
+                    gnome.Offer = model.Offer;
+                    gnome.Price = model.Price;
+                    if (gnome.Offer > 0)
+                        gnome.ReducedPrice = gnome.Price * ((double)gnome.Offer / 100.0);
+                    gnome.Details = model.Details;
+                    gnome.Latitude = model.Latitude;
+                    gnome.Longitude = model.Longitude;
+                    gnomeList.Gnomes.Add(gnome);
+                }
+                */
+            if(User.IsInRole("admin"))
+                return View(db.Products.ToList());
+            else
+                return View(db.Products.ToList().Where(u => u.IsPublic == true));
         }
 
+        public ActionResult GetGnomes()
+        {
+            using(var db = new MainDbContext())
+            {
+                List<GnomeMinDataViewModel> gnomes = new List<GnomeMinDataViewModel>();
+                List<Products> public_gnomes = db.Products.Where(u => u.IsPublic == true).ToList();
+                foreach(Products gnome in public_gnomes)
+                {
+                    GnomeMinDataViewModel min_gnome = new GnomeMinDataViewModel();
+                    min_gnome.Name = gnome.Name;
+                    min_gnome.Price = gnome.Price;
+                    min_gnome.Offer = gnome.Offer;
+                    min_gnome.ReducedPrice = min_gnome.Price * ((double)min_gnome.Offer / 100);
+                    min_gnome.Latitude = gnome.Latitude;
+                    min_gnome.Longitude = gnome.Longitude;
+                    min_gnome.Image = gnome.Image;
+                    gnomes.Add(min_gnome);
+                }
+                return Json(gnomes, JsonRequestBehavior.AllowGet);
+            }
+            
+        }
         [HttpGet]
         public ActionResult Show(int gnome_id)
         {
             using (var db = new MainDbContext())
             {
                 var model = db.Products.Find(gnome_id);
-                if (model == null || !model.IsPublic)
+                if (model == null || (!model.IsPublic && !User.IsInRole("admin"))) // If the user is an admin, he can see the "disabled" Gnomes
                     return HttpNotFound();
-                return View(model);
+                ShowGnomeViewModel gnome = new ShowGnomeViewModel();
+                gnome.Id = model.Id;
+                gnome.Image = model.Image;
+                gnome.IsPublic = model.IsPublic;
+                gnome.Name = model.Name;
+                gnome.Offer = model.Offer;
+                gnome.Price = model.Price;
+                if (gnome.Offer > 0)
+                    gnome.ReducedPrice = gnome.Price * ((double)gnome.Offer / 100.0);
+                gnome.Details = model.Details;
+                gnome.Latitude = model.Latitude;
+                gnome.Longitude = model.Longitude;
+                return View(gnome);
             }
         }
     }

@@ -1,35 +1,46 @@
-﻿@model HireGnome.Models.Users
+﻿@model HireGnome.ViewModels.RegistrationViewModel
 @{
-    ViewBag.Title = "Registration";
+    ViewBag.Title = "Create an account";
 }
 
-<h2>Registration</h2>
+<div class="container">
+    <div class="row main">
+        <div class="panel-heading">
+            <div class="panel-title text-center">
+                <h1 class="title">Create an account</h1>
+                <hr />
+            </div>
+        </div>
+        <div class="col-md-2 col-md-offset-5">
+            @Html.ValidationSummary(true)
 
-@Html.ValidationSummary(true)
+            @using (Html.BeginForm(new { @class = "form-horizontal" }))
+            {
+                @Html.LabelFor(u => u.Email) <br />
+                @Html.TextBoxFor(u => u.Email, new { @class = "form-control " }) <br />
 
-@using (Html.BeginForm())
-{
-    @Html.LabelFor(u => u.Email) <br />
-    @Html.TextBoxFor(u => u.Email) <br />
+                @Html.LabelFor(u => u.Password) <br />
+                @Html.PasswordFor(u => u.Password, new { @class = "form-control " }) <br />
 
-    @Html.LabelFor(u => u.Password) <br />
-    @Html.PasswordFor(u => u.Password) <br />
+                @Html.LabelFor(u => u.Name) <br />
+                @Html.TextBoxFor(u => u.Name, new { @class = "form-control " }) <br />
 
-    @Html.LabelFor(u => u.Name) <br />
-    @Html.TextBoxFor(u => u.Name) <br />
+                @Html.LabelFor(u => u.FirstName) <br />
+                @Html.TextBoxFor(u => u.FirstName, new { @class = "form-control " }) <br />
 
-    @Html.LabelFor(u => u.Country) <br />
-    @Html.TextBoxFor(u => u.Country) <br />
+                @Html.LabelFor(u => u.SecondName) <br />
+                @Html.TextBoxFor(u => u.SecondName, new { @class = "form-control " }) <br />
 
-    @Html.LabelFor(u => u.FirstName) <br />
-    @Html.TextBoxFor(u => u.FirstName) <br />
+                @Html.LabelFor(u => u.Country) <br />
+                @Html.TextBoxFor(u => u.Country, new { @class = "form-control " }) <br />
 
-    @Html.LabelFor(u => u.SecondName) <br />
-    @Html.TextBoxFor(u => u.SecondName) <br />
+                <p>
+                    <button type="Submit" class="btn btn-primary btn-lg btn-block login-button">
+                        Register
+                    </button>
+                </p>
+            }
 
-    <p>
-        <button type="Submit">
-            Register
-        </button>
-    </p>
-}  
+        </div>
+    </div>
+</div>
