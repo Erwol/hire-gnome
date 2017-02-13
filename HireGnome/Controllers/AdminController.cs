@@ -114,6 +114,8 @@ namespace HireGnome.Controllers
                     dbProduct.CreationDate = model.CreationDate;
                     dbProduct.ModificationDate = DateTime.Now;
                     dbProduct.Image = model.Image;
+                    dbProduct.Latitude = model.Latitude;
+                    dbProduct.Longitude = model.Longitude;
                     db.SaveChanges();
 
                     return RedirectToAction("Show", "Product", new { gnome_id = dbProduct.Id });

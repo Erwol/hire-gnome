@@ -73,9 +73,10 @@ namespace HireGnome.Controllers
                     min_gnome.Price = gnome.Price;
                     min_gnome.Offer = gnome.Offer;
                     min_gnome.ReducedPrice = min_gnome.Price * ((double)min_gnome.Offer / 100);
-                    min_gnome.Latitude = gnome.Latitude;
-                    min_gnome.Longitude = gnome.Longitude;
+                    min_gnome.Latitude = gnome.Latitude.ToString().Replace(',', '.');
+                    min_gnome.Longitude = gnome.Longitude.ToString().Replace(',','.');
                     min_gnome.Image = gnome.Image;
+                    min_gnome.Id = gnome.Id;
                     gnomes.Add(min_gnome);
                 }
                 return Json(gnomes, JsonRequestBehavior.AllowGet);
@@ -100,8 +101,8 @@ namespace HireGnome.Controllers
                 if (gnome.Offer > 0)
                     gnome.ReducedPrice = gnome.Price * ((double)gnome.Offer / 100.0);
                 gnome.Details = model.Details;
-                gnome.Latitude = model.Latitude;
-                gnome.Longitude = model.Longitude;
+                gnome.Latitude = model.Latitude.ToString().Replace(',', '.');
+                gnome.Longitude = model.Longitude.ToString().Replace(',', '.');
                 return View(gnome);
             }
         }

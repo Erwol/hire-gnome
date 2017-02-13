@@ -9,6 +9,7 @@ using System.Data.Entity;
 
 namespace HireGnome.Controllers
 {
+    [AllowAnonymous]
     public class HomeController : Controller
     {
         // GET: Home

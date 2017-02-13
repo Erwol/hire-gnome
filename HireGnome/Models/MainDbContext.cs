@@ -42,9 +42,16 @@ namespace HireGnome
 
             // Every cart must be attached to a user, but a user (ie Admin) could not have any cart
             mb.Entity<Users>().
-                HasMany<Carts>(x => x.Carts).
-                WithRequired(x => x.User).
-                HasForeignKey(x => x.UserId);
+                HasMany<Carts>(x => x.Carts);
+                //WithRequired(x => x.User).
+                //HasForeignKey(x => x.UserId);
+
+            // A cart has un usuario opcional (o una identidad anónima) ligados
+            mb.Entity<Carts>().
+                HasOptional(x => x.User);
+
+            mb.Entity<Carts>().
+                HasOptional(x => x.User);
             /*
             mb.Entity<Users>().
                 HasMany<Bills>(x => x.Bills).
@@ -58,8 +65,8 @@ namespace HireGnome
 
 
     */
-                
-              
+
+
 
         }
     }

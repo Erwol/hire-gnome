@@ -14,18 +14,18 @@ namespace HireGnome.Models
         [Key]
         public int Id { get; set; }
 
-        // Cart < * - * > Products
         public virtual ICollection<Products> Products { get; set; }
 
-        // Cart < * - 1 > User
-        // [Required] Let's try to create a shopping cart for anonymous users
+        // A cart can belong to a registered user or to an anom visitor that has an AnomIdentity
         public int UserId { get; set; }
         public virtual Users User { get; set; }
 
-        public string Name { get; set; }        // A way to personalize the cart
+        public int AnomIdentityId { get; set; }
+        public virtual AnomIdentity AnomIdentity { get; set; }
 
-        
-        public bool IsPublic { get; set; }      // Cart listed in "Inspiration" tab
+        public string Name { get; set; }
+
+        public bool IsPublic { get; set; }      // A cart may be made "public", so other users can see what this specific user uses to buy
         public bool IsBilled { get; set; }      // A cart that has been shipped
         public bool IsMainCart { get; set; }    // Tells the app that this cart should be the more accesible
 
@@ -47,7 +47,7 @@ namespace HireGnome.Models
         public Carts()
         {
             IsBilled = false;
-            IsMainCart = true;
+            IsMainCart = false;
             IsPublic = false;
             CreationDate = DateTime.Now;
             ModificationDate = DateTime.Now;

@@ -23,10 +23,10 @@ namespace HireGnome.ViewModels
         public string Image { get; set; }
 
         [Display(Name = "Latitude")]
-        public double Latitude { get; set; }
+        public string Latitude { get; set; }
 
         [Display(Name = "Longitude")]
-        public double Longitude { get; set; }
+        public string Longitude { get; set; }
 
         [Display(Name = "Price")]
         [Required]

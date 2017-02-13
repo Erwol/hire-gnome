@@ -14,3 +14,8 @@ function hideGnome(id) {
         window.location.assign("/Admin/HideGnome/" + id);
     }
 }
+
+function showGnome(id) {
+    alert(id);
+    window.location.assign("/Product/Show?gnome_id=" + id);
+}

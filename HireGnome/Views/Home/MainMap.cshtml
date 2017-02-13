@@ -12,35 +12,89 @@
 
 
 
+<script src="~/Content/Scripts/hire-gnome.js"></script>
+
+
 <script>
     // Getting the data
-    window.addEventListener("load", function(){
+    //window.addEventListener("load", function(){
+    function get_data(){
         var request = new XMLHttpRequest();
         request.open("GET", "/Product/GetGnomes");
         request.onreadystatechange = function () {
             if (request.readyState == XMLHttpRequest.DONE) {
                 var gnomes = JSON.parse(request.responseText);
-                load_map(gnomes);
+                console.log(gnomes);
+                initMap(gnomes);
             };
         };
         request.send();
-    });
+    }
 
-    function initMap() {
+    function initMap(gnomes) {
+        
+            
+            
         var infowindow; // Must be global to the function in order to close all when selecting a new one
         var map = new google.maps.Map(document.getElementById('map'), {
             zoom: 15,
             center: { lat: 51.11071, lng: 17.033873 }
         });
+        for (var i = 0; i < gnomes.length; i++) {
+            var pos = { lat: parseFloat(gnomes[i].Latitude), lng: parseFloat(gnomes[i].Longitude) };
+            
+            addMarker(pos, gnomes[i]);
+        }
+        
+        // Marker logic
+        function addMarker(coord, gnome) {
+            var title, price, links, set;
+            title = "<h4>" + gnome.Name + "</h4>";
+            if (gnome.Offer > 0)
+                price = "Price: <strike>" + gnome.Price + "$</strike><b> " + gnome.ReducedPrice + "$</b>(-" + gnome.Offer + "%)";
+            else
+                price = "Price: " + gnome.Price + "$";
+            set = 'window.location.assign("/Product/Show?gnome_id=' + gnome.Id + '")'
+            links = "<br><button type='button' class='btn btn-success btn-xs'>Buy it</button>";
+            links = links + "<button id='details_button' type='button' onclick='"+ set + "' class='btn btn-xs btn-info'>Details</button>";
+
+            
+
+            // Creating the info window
+            var infowindow = new google.maps.InfoWindow({
+                content: title + price + links
+            });
+            
+            // Setting up the marker
+            var marker = new google.maps.Marker({
+                position: coord,
+                map: map,
+                title: gnome.Name.toString()
+            });
+
+            // Auto open the Info Window
+            infowindow.open(map, marker);
+
+            /*
+            // Listener for the button
+            document.getElementById("details_button").onclick = function () {
+                window.location.assign("/Product/Show?gnome_id=" + gnome.Id);
+            };*/
+
+            
+            
+        }
     }
 
-    
 
-   
+
+
+
+
 
 </script>
 
 <script async defer
-        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDHRTXhawcUlfd6ULU_jXBoWLL-hhbY03Y&callback=initMap">
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDHRTXhawcUlfd6ULU_jXBoWLL-hhbY03Y&callback=get_data">
 </script>
 
