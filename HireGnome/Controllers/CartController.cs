@@ -49,7 +49,17 @@ namespace HireGnome.Controllers
                 for(int i = 0; i < main_cart.Products.Count; i++)
                 {
                     var gnome = main_cart.Products.ElementAt(i);
-                    cart_model.Products.Add(gnome.Name + ". " + gnome.Price);
+                    double price = 0;
+                    if(gnome.Offer > 0)
+                    {
+                        price = gnome.Price * ((double)gnome.Offer / 100.0);
+                        cart_model.Products.Add(gnome.Name + ": " + price + "$ (Price without offer: " + gnome.Price + "$)");
+                    }
+                    else
+                    {
+                        cart_model.Products.Add(gnome.Name + ". " + gnome.Price + "$");
+                    }
+                        
                 }
                     
                 return View(cart_model);
@@ -72,7 +82,7 @@ namespace HireGnome.Controllers
                 var cart = db.Carts.Where(x => x.User.Id == user.Id && x.IsMainCart == true).FirstOrDefault();
                 if (cart == null)
                     return HttpNotFound();
-                cart.Products.Add(product);
+                cart.Products.Add(product); 
                 db.SaveChanges();
 
                 return RedirectToAction("CartContent");

@@ -26,6 +26,8 @@ namespace HireGnome
 
         public DbSet<AnomIdentity> AnomIdentities { get; set; }
 
+        public DbSet<Bills> Bills { get; set; }
+
         // public DbSet<Images> Images { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder mb)
@@ -50,6 +52,14 @@ namespace HireGnome
             mb.Entity<AnomIdentity>()
                 .HasRequired(x => x.Cart)
                 .WithOptional(x => x.AnomIdentity);
+
+            mb.Entity<Bills>()
+                .HasRequired(x => x.Cart)
+                .WithOptional(x => x.Bill);
+
+            mb.Entity<Users>()
+                .HasMany<Carts>(x => x.Carts)
+                .WithRequired(x => x.User);
             /*
             mb.Entity<Carts>()
                 .HasOptional(x => x.AnomIdentity)

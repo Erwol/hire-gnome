@@ -54,22 +54,30 @@
                             <a href="@Url.Action("Registration", "Auth")">Register</a>
                         </li>
                         <li>
-                            <a href="@Url.Action("Login", "Auth")">Login</a>
+                            <button style="margin-top: 10px;" type="button" class="btn btn-success btn-sm">
+                                <a style="color:black;" href="@Url.Action("Login", "Auth")"><span class="glyphicon glyphicon-log-in"></span> Login</a>
+                            </button>
                         </li>
+
+                        
 
                     }
                     else
                     {
                     <li>
-                        <button style="    margin-top: 10px;"type="button" class="btn btn-default btn-sm">
-                            <span class="glyphicon glyphicon-shopping-cart"></span> Shopping Cart
+                        <button style="margin-top: 10px;"type="button" class="btn btn-success btn-sm">
+                            <a style="color:black;" href="@Url.Action("CartContent", "Cart")"><span class="glyphicon glyphicon-shopping-cart"></span> Shopping Cart</a>
                         </button>
                     </li>
                     <li>
-                        
-                        <a href="@Url.Action("Logout", "Auth")">
-                            Logout
-                        </a>
+                        <button style="margin-top: 10px;" type="button" class="btn btn-default btn-sm">
+                            <a style="color:black;" href="@Url.Action("Index", "Cart")"><span class="glyphicon glyphicon-cog"></span>My carts</a>
+                        </button>
+                    </li>
+                    <li>
+                        <button style="margin-top: 10px;" type="button" class="btn btn-danger btn-sm">
+                            <a style="color:black;" href="@Url.Action("Logout", "Auth")"><span class="glyphicon glyphicon-log-out"></span>Logout</a>
+                        </button>
                     </li>
                     
                     }

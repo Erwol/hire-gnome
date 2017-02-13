@@ -18,7 +18,7 @@ namespace HireGnome.Models
         public string Email { get; set; }
 
         [Required]
-        [DataType(DataType.Password)] // Masked field
+        [DataType(DataType.Password)]
         public string Password { get; set; }
 
         [Required]
@@ -26,19 +26,20 @@ namespace HireGnome.Models
         public string FirstName { get; set; }
         public string SecondName { get; set; }
 
+        [Required(ErrorMessage ="Introduce your country")]
         public string Country { get; set; }
+
+        [Required(ErrorMessage ="An address must be given")]
+        public string Address { get; set; }
 
         // One to many relation with roles
         public int RolId { get; set; }
         [ForeignKey("RolId")]
         public virtual Roles Rol { get; set; }
-
-        // All the carts that the user is managing (such a whishes list, etc)
         
         public virtual ICollection<Carts> Carts { get; set; }
-
-        // The bills of the user
-        //public virtual ICollection<Bills> Bills { get; set; }
+        
+        public virtual ICollection<Bills> Bills { get; set; }
 
         public bool IsActive { get; set; }
 

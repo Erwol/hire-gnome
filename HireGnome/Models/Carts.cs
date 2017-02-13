@@ -36,19 +36,15 @@ namespace HireGnome.Models
         [DataType(DataType.DateTime)]
         public DateTime ModificationDate { get; set; }
 
-        /*
-        [ForeignKey("Bill")]
-        public int BillId { get; set; }
-
         public virtual Bills Bill { get; set; }
-        */
+       
 
 
         // Constructor
         public Carts()
         {
             IsBilled = false;
-            IsMainCart = false;
+            //IsMainCart = false;
             IsPublic = false;
             CreationDate = DateTime.Now;
             ModificationDate = DateTime.Now;

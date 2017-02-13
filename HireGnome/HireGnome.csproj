@@ -228,6 +228,7 @@
     <Content Include="Views\Product\Show.cshtml" />
     <Content Include="Views\Home\MainMap.cshtml" />
     <Content Include="Views\Cart\CartContent.cshtml" />
+    <Content Include="Views\CheckOut\Confirmation.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
