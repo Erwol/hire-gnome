@@ -178,13 +178,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201702101419433_First.cs" />
-    <Compile Include="Migrations\201702101419433_First.Designer.cs">
-      <DependentUpon>201702101419433_First.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201702130125388_Anom Identity II.cs" />
-    <Compile Include="Migrations\201702130125388_Anom Identity II.Designer.cs">
-      <DependentUpon>201702130125388_Anom Identity II.cs</DependentUpon>
+    <Compile Include="Migrations\201702131330549_Fix2.cs" />
+    <Compile Include="Migrations\201702131330549_Fix2.Designer.cs">
+      <DependentUpon>201702131330549_Fix2.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AnomIdentity.cs" />
@@ -207,6 +203,7 @@
     <Compile Include="ViewModels\ListGnomesViewModel.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />
     <Compile Include="ViewModels\RegistrationViewModel.cs" />
+    <Compile Include="ViewModels\ShowCartViewModel.cs" />
     <Compile Include="ViewModels\ShowGnomeViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -230,6 +227,7 @@
     <Content Include="Views\Admin\EditGnome.cshtml" />
     <Content Include="Views\Product\Show.cshtml" />
     <Content Include="Views\Home\MainMap.cshtml" />
+    <Content Include="Views\Cart\CartContent.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -238,11 +236,8 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201702101419433_First.resx">
-      <DependentUpon>201702101419433_First.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201702130125388_Anom Identity II.resx">
-      <DependentUpon>201702130125388_Anom Identity II.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201702131330549_Fix2.resx">
+      <DependentUpon>201702131330549_Fix2.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

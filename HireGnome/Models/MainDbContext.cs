@@ -24,6 +24,8 @@ namespace HireGnome
 
         public DbSet<Names> Names { get; set; }
 
+        public DbSet<AnomIdentity> AnomIdentities { get; set; }
+
         // public DbSet<Images> Images { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder mb)

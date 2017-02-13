@@ -16,6 +16,32 @@ function hideGnome(id) {
 }
 
 function showGnome(id) {
-    alert(id);
     window.location.assign("/Product/Show?gnome_id=" + id);
+}
+
+function addProductToCart(id) {
+    var request = new XMLHttpRequest();
+    request.open("GET", "/Cart/Add/" + id);
+    request.onreadystatechange = function () {
+        if (request.readyState == XMLHttpRequest.DONE) {
+            var gnomes = JSON.parse(request.responseText);
+            console.log(gnomes);
+        };
+    };
+    request.send();
+    /*
+    var http = new XMLHttpRequest();
+    var url = "/Cart/Add";
+    var params = product_id;
+    http.open("POST", url, true);
+
+    //Send the proper header information along with the request
+    //http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+
+    http.onreadystatechange = function () {//Call a function when the state changes.
+        if (http.readyState == 4 && http.status == 200) {
+            alert(http.responseText);
+        }
+    }
+    http.send(params*/
 }

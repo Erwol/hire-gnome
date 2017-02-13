@@ -14,7 +14,13 @@ namespace HireGnome.Models
         public DateTime CreationDate { get; set; }
         public DateTime ModificationDate { get; set; }
 
-        public int CartIt { get; set; }
+        public int CartId { get; set; }
         public virtual Carts Cart {get; set;}
+
+        public AnomIdentity()
+        {
+            CreationDate = DateTime.Now;
+            ModificationDate = DateTime.Now;
+        }
     }
 }

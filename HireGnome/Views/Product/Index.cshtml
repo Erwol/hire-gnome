@@ -1,6 +1,7 @@
 ﻿@model IEnumerable<HireGnome.Models.Products>
 @{
     ViewBag.Title = "Index";
+    ViewBag.Price = 0;
 }
 
 <div class="panel-title text-center">
@@ -9,7 +10,19 @@
 
 </div>
 
-
+<script>
+    function addProductToCart(id) {
+        var request = new XMLHttpRequest();
+        request.open("GET", "/Cart/Add/" + id);
+        request.onreadystatechange = function () {
+            if (request.readyState == XMLHttpRequest.DONE) {
+                var gnomes = JSON.parse(request.responseText);
+                console.log(request.responseText);
+            };
+        };
+        request.send();
+    }
+</script>
 
 
 
@@ -25,15 +38,39 @@
                 <div class="panel-title text-center">
                     @if (!item.IsPublic)
                     {
-                        <h2 style="color:red">@item.Name ~ Disabled Gnome</h2>
+                        
+                        <h3 style="color:red">@item.Name ~ Disabled Gnome</h3>
                     }
                     else
                     {
-                        <h2>@item.Name</h2>
+                        <h3>@item.Name</h3>
                     }
 
-                    <button onclick="window.location.assign('/Product/Show?gnome_id=' + @item.Id)">Details</button>
+                    <button class="btn btn-info bg-danger btn-md"onclick="window.location.assign('/Product/Show?gnome_id=' + @item.Id)">Details</button>
+                    <button onclick="window.location.assign('/Cart/Add/'+ @item.Id)" class="btn btn-success btn-md">
+                        <span class="glyphicon glyphicon-shopping-cart"></span>
+                        @if(item.Offer > 0)
+                        {
+                            {
+                                ViewBag.Price = (item.Price * item.Offer) / 100;
+                            }
+                            <strike>@item.Price</strike> <b>@ViewBag.Price</b>
+                        }
+                        else
+                        {
+                            @item.Price
+                        }
+                    </button>
+                    <script> 
+                        //window.onload = function () { Doesn't works because it's asking for the result
+                        //    document.getElementById("shopping-btn").addEventListener("click", addProductToCart();
+                        // }
+                        //document.getElementById("shopping-btn").addEventListener("click", function () {
+                        //    addProductToCart(@item.Id);
+                        //});
 
+
+                    </script>
                     @if (User.IsInRole("admin"))
                     {
                         <div class="row">
@@ -54,6 +91,7 @@
                             </div>
                         </div>
                     }
+                    <hr />
                 </div>
             </div>
         }

@@ -7,13 +7,13 @@ namespace HireGnome.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class AnomIdentityII : IMigrationMetadata
+    public sealed partial class Fix2 : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(AnomIdentityII));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(Fix2));
         
         string IMigrationMetadata.Id
         {
-            get { return "201702130125388_Anom Identity II"; }
+            get { return "201702131330549_Fix2"; }
         }
         
         string IMigrationMetadata.Source

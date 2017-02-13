@@ -139,6 +139,7 @@ namespace HireGnome.Controllers
                     var defaultShoppingCart = db.Carts.Create();
                     defaultShoppingCart.User = user;
                     defaultShoppingCart.Name = "Shopping cart of " + user.Name + ".";
+                    defaultShoppingCart.IsMainCart = true;
 
                     db.Carts.Add(defaultShoppingCart);
                     db.Users.Add(user);

@@ -66,5 +66,4 @@ C:\Users\Ernesto\Dropbox\Workspaces\express\HireGnome\HireGnome\bin\PagedList.Mv
 C:\Users\Ernesto\Dropbox\Workspaces\express\HireGnome\HireGnome\obj\Debug\HireGnome.Properties.Resources.resources
 C:\Users\Ernesto\Dropbox\Workspaces\express\HireGnome\HireGnome\bin\HireGnome.Domain.dll
 C:\Users\Ernesto\Dropbox\Workspaces\express\HireGnome\HireGnome\bin\HireGnome.Domain.pdb
-C:\Users\Ernesto\Dropbox\Workspaces\express\HireGnome\HireGnome\obj\Debug\HireGnome.Migrations.First.resources
-C:\Users\Ernesto\Dropbox\Workspaces\express\HireGnome\HireGnome\obj\Debug\HireGnome.Migrations.AnomIdentityII.resources
+C:\Users\Ernesto\Dropbox\Workspaces\express\HireGnome\HireGnome\obj\Debug\HireGnome.Migrations.Fix2.resources
