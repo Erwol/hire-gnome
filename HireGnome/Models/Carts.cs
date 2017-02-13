@@ -17,10 +17,11 @@ namespace HireGnome.Models
         public virtual ICollection<Products> Products { get; set; }
 
         // A cart can belong to a registered user or to an anom visitor that has an AnomIdentity
-        public int UserId { get; set; }
+        //  nullable FK property
+        // public int? UserId { get; set; }
         public virtual Users User { get; set; }
 
-        public int AnomIdentityId { get; set; }
+        //public int? AnomIdentityId { get; set; }
         public virtual AnomIdentity AnomIdentity { get; set; }
 
         public string Name { get; set; }

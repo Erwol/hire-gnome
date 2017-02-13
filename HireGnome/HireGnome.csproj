@@ -182,7 +182,12 @@
     <Compile Include="Migrations\201702101419433_First.Designer.cs">
       <DependentUpon>201702101419433_First.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201702130125388_Anom Identity II.cs" />
+    <Compile Include="Migrations\201702130125388_Anom Identity II.Designer.cs">
+      <DependentUpon>201702130125388_Anom Identity II.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\AnomIdentity.cs" />
     <Compile Include="Models\Bills.cs" />
     <Compile Include="Models\Carts.cs" />
     <Compile Include="Models\Images.cs" />
@@ -235,6 +240,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201702101419433_First.resx">
       <DependentUpon>201702101419433_First.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201702130125388_Anom Identity II.resx">
+      <DependentUpon>201702130125388_Anom Identity II.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

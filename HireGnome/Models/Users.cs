@@ -10,7 +10,6 @@ namespace HireGnome.Models
 {
     public class Users
     {
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Key]  
         public int Id { get; set; }
 
@@ -35,6 +34,7 @@ namespace HireGnome.Models
         public virtual Roles Rol { get; set; }
 
         // All the carts that the user is managing (such a whishes list, etc)
+        
         public virtual ICollection<Carts> Carts { get; set; }
 
         // The bills of the user

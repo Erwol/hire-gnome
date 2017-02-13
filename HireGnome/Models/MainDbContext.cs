@@ -40,31 +40,32 @@ namespace HireGnome
                 WithRequired(x => x.Rol).
                 HasForeignKey(x => x.RolId);
 
-            // Every cart must be attached to a user, but a user (ie Admin) could not have any cart
-            mb.Entity<Users>().
-                HasMany<Carts>(x => x.Carts);
-                //WithRequired(x => x.User).
-                //HasForeignKey(x => x.UserId);
-
-            // A cart has un usuario opcional (o una identidad anónima) ligados
+            // The carts are attached to Users... or Anom Identities
             mb.Entity<Carts>().
-                HasOptional(x => x.User);
+                HasOptional(x => x.User).
+                WithMany(x => x.Carts);
 
-            mb.Entity<Carts>().
-                HasOptional(x => x.User);
+            mb.Entity<AnomIdentity>()
+                .HasRequired(x => x.Cart)
+                .WithOptional(x => x.AnomIdentity);
+            /*
+            mb.Entity<Carts>()
+                .HasOptional(x => x.AnomIdentity)
+                .WithOptionalPrincipal(x => x.Cart);
+                */
             /*
             mb.Entity<Users>().
-                HasMany<Bills>(x => x.Bills).
-                WithOptional(x => x.User). // One user may not have any bill
-                HasForeignKey(x => x.UserId);
+                HasMany<Carts>(x => x.Carts);
 
-            // One to one
+            mb.Entity<AnomIdentity>().
+                HasOptional<Carts>(x => x.Cart);
+
             mb.Entity<Carts>().
-                HasOptional(x => x.Bill).   // A cart has one optional bill attached...
-                WithRequired(x => x.Cart);  // And a Bill cannot be stored without a Cart attached
+                HasOptional(x => x.User);
 
-
-    */
+            mb.Entity<Carts>().
+                HasOptional(x => x.AnomIdentity);
+            */
 
 
 
