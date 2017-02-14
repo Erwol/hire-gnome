@@ -67,3 +67,6 @@ C:\Users\Ernesto\Dropbox\Workspaces\express\HireGnome\HireGnome\obj\Debug\HireGn
 C:\Users\Ernesto\Dropbox\Workspaces\express\HireGnome\HireGnome\bin\HireGnome.Domain.dll
 C:\Users\Ernesto\Dropbox\Workspaces\express\HireGnome\HireGnome\bin\HireGnome.Domain.pdb
 C:\Users\Ernesto\Dropbox\Workspaces\express\HireGnome\HireGnome\obj\Debug\HireGnome.Migrations.Fix2.resources
+C:\Users\Ernesto\Dropbox\Workspaces\express\HireGnome\HireGnome\obj\Debug\HireGnome.Migrations.Checkoutmodifications.resources
+C:\Users\Ernesto\Dropbox\Workspaces\express\HireGnome\HireGnome\obj\Debug\HireGnome.Migrations.datetimeonBills.resources
+C:\Users\Ernesto\Dropbox\Workspaces\express\HireGnome\HireGnome\obj\Debug\HireGnome.Migrations.New2i.resources

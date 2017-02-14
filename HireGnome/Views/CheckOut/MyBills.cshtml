@@ -1,0 +1,22 @@
+﻿@model HireGnome.ViewModels.ShowUserBillsViewModel
+@{
+    ViewBag.Title = "User's bills";
+}
+
+<h2>Here you can find all your bills</h2>
+
+@if(Model.Bills.Count == 0)
+{
+    <h2>Looks like you don't have any bill yet. Go and make some payments.</h2>
+}
+else{
+    <ul>
+
+        @foreach(var bill in Model.Bills)
+        {
+            <li>
+                Bill number @bill.Id. Price: @bill.FinalPrice. Created on: @bill.CreationDate
+            </li>
+        }
+    </ul>
+}

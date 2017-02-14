@@ -32,9 +32,9 @@
     }
 
     function initMap(gnomes) {
-        
-            
-            
+
+
+
         var infowindow; // Must be global to the function in order to close all when selecting a new one
         var map = new google.maps.Map(document.getElementById('map'), {
             zoom: 15,
@@ -42,29 +42,30 @@
         });
         for (var i = 0; i < gnomes.length; i++) {
             var pos = { lat: parseFloat(gnomes[i].Latitude), lng: parseFloat(gnomes[i].Longitude) };
-            
+
             addMarker(pos, gnomes[i]);
         }
-        
+
         // Marker logic
         function addMarker(coord, gnome) {
-            var title, price, links, set;
+            var title, price, links, set, buy;
             title = "<h4>" + gnome.Name + "</h4>";
             if (gnome.Offer > 0)
                 price = "Price: <strike>" + gnome.Price + "$</strike><b> " + gnome.ReducedPrice + "$</b>(-" + gnome.Offer + "%)";
             else
                 price = "Price: " + gnome.Price + "$";
-            set = 'window.location.assign("/Product/Show?gnome_id=' + gnome.Id + '")'
-            links = "<br><button type='button' class='btn btn-success btn-xs'>Buy it</button>";
+            set = 'window.location.assign("/Product/Show?gnome_id=' + gnome.Id + '")';
+            buy = 'window.location.assign("/Cart/Add/' + gnome.Id + '")';
+            links = "<br><button onclick='" + buy + "' type='button' class='btn btn-success btn-xs'>Buy it</button>";
             links = links + "<button id='details_button' type='button' onclick='"+ set + "' class='btn btn-xs btn-info'>Details</button>";
 
-            
+
 
             // Creating the info window
             var infowindow = new google.maps.InfoWindow({
                 content: title + price + links
             });
-            
+
             // Setting up the marker
             var marker = new google.maps.Marker({
                 position: coord,
@@ -81,8 +82,8 @@
                 window.location.assign("/Product/Show?gnome_id=" + gnome.Id);
             };*/
 
-            
-            
+
+
         }
     }
 

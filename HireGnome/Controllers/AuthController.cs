@@ -131,6 +131,7 @@ namespace HireGnome.Controllers
                     user.Email = model.Email;
                     user.Password = encryptedPassword;
                     user.Country = model.Country;
+                    user.Address = model.Address;
                     user.Name = model.Name;
                     user.FirstName = model.FirstName;
                     user.SecondName = model.SecondName;

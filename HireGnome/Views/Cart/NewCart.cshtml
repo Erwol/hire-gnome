@@ -1,0 +1,24 @@
+﻿@model HireGnome.Models.Carts
+@{
+    ViewBag.Title = "New Cart";
+}
+
+<h2>New Cart</h2>
+
+@Html.ValidationSummary(true)
+@using (Html.BeginForm(new { @class = "form-horizontal" }))
+{
+    @Html.LabelFor(u => u.Name)
+    @Html.TextBoxFor(u => u.Name, new { @class = "form-control " })
+    <br />
+    @Html.LabelFor(u => u.IsPublic)
+    @Html.EditorFor(u => u.IsPublic, new { @class = "form-control " })
+
+    <p>
+        <button type="Submit" class="btn btn-primary btn-lg btn-block login-button">
+            Save it
+        </button>
+    </p>
+
+}
+

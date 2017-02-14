@@ -5,3 +5,12 @@
 
 <h2>Payment confirmation</h2>
 
+<p>Payment made by @Model.User.SecondName, @Model.User.FirstName on the @Model.CreationDate</p>
+<p>Total paid: @Model.FinalPrice$</p>
+<p>Gnomes:</p>
+<ul>
+    @foreach(var gnome in Model.Cart.Products)
+    {
+        <li>@gnome.Name</li>
+    }
+</ul>

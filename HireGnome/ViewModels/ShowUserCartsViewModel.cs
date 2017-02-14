@@ -7,15 +7,9 @@ using HireGnome.Models;
 
 namespace HireGnome.ViewModels
 {
-    public class ShowCheckOutConfirmationViewModel
+    public class ShowUserCartsViewModel
     {
-        [Key]
-        public int Id { get; set; }
-
         public Users User { get; set; }
-
-        public Carts Cart { get; set; }
-
-        public DateTime CreationDate { get; set; }
+        public List<Carts> Carts { get; set; }
     }
 }

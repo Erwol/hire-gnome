@@ -9,7 +9,7 @@
         width: 100%;
        }
 </style>
-
+<br />
 <div class="container">
     @if (User.IsInRole("admin"))
     {
@@ -60,7 +60,7 @@
             @if (Model.Offer != 0)
             {
                 <p><b>You're lucky, this Gnome is on Sale!</b></p>
-                <button class="btn btn-success btn-block">Before: <strike>@Model.Price$</strike> Now: @Model.ReducedPrice$<br /> <b>Get it now!</b></button>
+                <button onclick="window.location.assign('/Cart/Add/'+ @Model.Id)" class="btn btn-success btn-block">Before: <strike>@Model.Price$</strike> Now: @Model.ReducedPrice$<br /> <b>Get it now!</b></button>
             }
             
              

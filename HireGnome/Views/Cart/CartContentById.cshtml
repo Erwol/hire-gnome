@@ -1,0 +1,21 @@
+﻿@model HireGnome.ViewModels.ShowCartViewModel
+@{
+    ViewBag.Title = "Cart Content";
+}
+
+<h2>Products in your main cart (@Model.Name):</h2>
+
+<ul>
+    @foreach (var element in Model.Products)
+    {
+        <li>@element</li>
+    }
+</ul>
+
+<button id="check-out-button" class="btn btn-success btn-lg">Checkout</button>
+
+<script>
+    document.getElementById("check-out-button").addEventListener("click", function () {
+        window.location.assign("/CheckOut/Confirmation");
+    });
+</script>

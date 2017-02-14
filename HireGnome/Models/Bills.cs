@@ -18,7 +18,11 @@ namespace HireGnome.Models
 
         public double FinalPrice { get; set; }
 
+        [DataType(DataType.DateTime)]
+        public DateTime CreationDate { get; set; }
 
+        [DataType(DataType.DateTime)]
+        public DateTime ModificationDate { get; set; }
 
     }
 }

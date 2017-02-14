@@ -1,29 +1,32 @@
-﻿@model IEnumerable<HireGnome.Models.Carts>
+﻿@model HireGnome.ViewModels.ShowUserCartsViewModel
 @{
     ViewBag.Title = "Index";
-    var username = User.Identity.Name;
 }
 
-<h2>@username shopping carts</h2>
-<p>A single user may have more than one shopping cart</p>
+<h2>@Model.User.FirstName shopping carts</h2>
 
-@if(Model.Count() == 0)
-{
-    <h2>Looks like you don't have any shopping cart</h2>
-}
+<ul>
+    @foreach (var cart in Model.Carts)
+    {
+        <li>
+            @if (cart.IsMainCart)
+            {
+                <b>Main cart |</b>
+            }
+            @cart.Name | 
+            @if (cart.IsBilled)
+            {
+                <b>This cart was already payed</b>
+            }
+            else if (!cart.IsMainCart)
+            {
+                <button class="btn btn-info" onclick='window.location.assign("/Cart/ChangeMainCart/@cart.Id")'>Make it your main cart</button>
+            }
+            <button class="btn btn-success" onclick='window.location.assign("/Cart/CartContentById/@cart.Id")'>View content</button>
+        </li>
+    }
+</ul>
 
-@using (Html.BeginForm())
-{
-    <h3>Create a new shopping cart</h3>
-    <span>Name the cart:</span> <input type="text" name="cart_name" placeholder="Christmas gifts..."/><br />
-    <span>Make it public? </span> <input type="checkbox" name="cart_public"/><br />
+<a style="color:black;" href="@Url.Action("NewCart", "Cart")">Add a new cart</a>
 
-    <input type="submit" value="Add Item" />
-}
-
-@foreach (var item in Model)
-{
-    <h3>@item.Name</h3>
-    <a href="@Url.Action("Details", "Cart")/@Html.DisplayFor(modelItem => item.Id)">Details</a>
-}
 

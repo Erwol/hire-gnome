@@ -43,8 +43,8 @@ namespace HireGnome
                 HasMany<Users>(x => x.Users).
                 WithRequired(x => x.Rol).
                 HasForeignKey(x => x.RolId);
+            
 
-            // The carts are attached to Users... or Anom Identities
             mb.Entity<Carts>().
                 HasOptional(x => x.User).
                 WithMany(x => x.Carts);
@@ -57,9 +57,9 @@ namespace HireGnome
                 .HasRequired(x => x.Cart)
                 .WithOptional(x => x.Bill);
 
-            mb.Entity<Users>()
-                .HasMany<Carts>(x => x.Carts)
-                .WithRequired(x => x.User);
+            mb.Entity<Bills>()
+                .HasRequired(x => x.User)
+                .WithMany(x => x.Bills);
             /*
             mb.Entity<Carts>()
                 .HasOptional(x => x.AnomIdentity)

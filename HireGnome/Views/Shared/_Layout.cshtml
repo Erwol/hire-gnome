@@ -43,9 +43,6 @@
                     <li>
                         <a href="@Url.Action("Index", "Product")">Our gnomes</a>
                     </li>
-                    <li>
-                        <a href="@Url.Action("Index", "Cart")">Your order</a>
-                    </li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     @if (!User.Identity.IsAuthenticated)
@@ -72,6 +69,11 @@
                     <li>
                         <button style="margin-top: 10px;" type="button" class="btn btn-default btn-sm">
                             <a style="color:black;" href="@Url.Action("Index", "Cart")"><span class="glyphicon glyphicon-cog"></span>My carts</a>
+                        </button>
+                    </li>
+                    <li>
+                        <button style="margin-top: 10px;" type="button" class="btn btn-default btn-sm">
+                            <a style="color:black;" href="@Url.Action("MyBills", "CheckOut")"><span class="glyphicon glyphicon-cog"></span>My bills</a>
                         </button>
                     </li>
                     <li>

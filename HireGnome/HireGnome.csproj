@@ -182,6 +182,18 @@
     <Compile Include="Migrations\201702131330549_Fix2.Designer.cs">
       <DependentUpon>201702131330549_Fix2.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201702131831228_Checkout modifications.cs" />
+    <Compile Include="Migrations\201702131831228_Checkout modifications.Designer.cs">
+      <DependentUpon>201702131831228_Checkout modifications.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201702131845404_datetime on Bills.cs" />
+    <Compile Include="Migrations\201702131845404_datetime on Bills.Designer.cs">
+      <DependentUpon>201702131845404_datetime on Bills.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201702131951079_New 2i&amp;.cs" />
+    <Compile Include="Migrations\201702131951079_New 2i&amp;.Designer.cs">
+      <DependentUpon>201702131951079_New 2i&amp;.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AnomIdentity.cs" />
     <Compile Include="Models\Bills.cs" />
@@ -204,7 +216,10 @@
     <Compile Include="ViewModels\LoginViewModel.cs" />
     <Compile Include="ViewModels\RegistrationViewModel.cs" />
     <Compile Include="ViewModels\ShowCartViewModel.cs" />
+    <Compile Include="ViewModels\ShowCheckOutConfirmationViewModel.cs" />
     <Compile Include="ViewModels\ShowGnomeViewModel.cs" />
+    <Compile Include="ViewModels\ShowUserBillsViewModel.cs" />
+    <Compile Include="ViewModels\ShowUserCartsViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\web.config" />
@@ -219,16 +234,14 @@
     <Content Include="Views\Auth\Index.cshtml" />
     <Content Include="Views\Product\Index.cshtml" />
     <Content Include="Views\Cart\Index.cshtml" />
-    <Content Include="Views\Cart\Details.cshtml" />
-    <Content Include="Views\Cart\New.cshtml" />
-    <Content Include="Views\Cart\Add.cshtml" />
-    <Content Include="Views\Cart\MyCarts.cshtml" />
     <Content Include="Views\Admin\AddGnome.cshtml" />
     <Content Include="Views\Admin\EditGnome.cshtml" />
     <Content Include="Views\Product\Show.cshtml" />
     <Content Include="Views\Home\MainMap.cshtml" />
-    <Content Include="Views\Cart\CartContent.cshtml" />
     <Content Include="Views\CheckOut\Confirmation.cshtml" />
+    <Content Include="Views\CheckOut\MyBills.cshtml" />
+    <Content Include="Views\Cart\NewCart.cshtml" />
+    <Content Include="Views\Cart\CartContentById.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -239,6 +252,15 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201702131330549_Fix2.resx">
       <DependentUpon>201702131330549_Fix2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201702131831228_Checkout modifications.resx">
+      <DependentUpon>201702131831228_Checkout modifications.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201702131845404_datetime on Bills.resx">
+      <DependentUpon>201702131845404_datetime on Bills.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201702131951079_New 2i&amp;.resx">
+      <DependentUpon>201702131951079_New 2i&amp;.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

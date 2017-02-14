@@ -31,5 +31,8 @@ namespace HireGnome.ViewModels
 
         [Display(Name = "Where are you from?")]
         public string Country { get; set; }
+
+        [Display(Name = "What's your address?")]
+        public string Address { get; set; }
     }
 }
