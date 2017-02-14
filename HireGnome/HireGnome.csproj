@@ -242,6 +242,7 @@
     <Content Include="Views\CheckOut\MyBills.cshtml" />
     <Content Include="Views\Cart\NewCart.cshtml" />
     <Content Include="Views\Cart\CartContentById.cshtml" />
+    <Content Include="Views\Product\Search.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

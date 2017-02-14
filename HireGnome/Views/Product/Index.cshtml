@@ -1,4 +1,6 @@
-﻿@model IEnumerable<HireGnome.Models.Products>
+﻿@using PagedList
+@using PagedList.Mvc
+@model PagedList<HireGnome.Models.Products>
 @{
     ViewBag.Title = "Index";
     ViewBag.Price = 0;
@@ -73,28 +75,28 @@
                     </script>
                     @if (User.IsInRole("admin"))
                     {
-                        <div class="row">
-                            <div class="col-sm-4">
-                                <button class="btn btn-success" onclick="editGnome(@item.Id)">
-                                    Edit
-                                </button>
-                            </div>
-                            <div class="sol-sm-4">
-                                <button class="btn btn-danger" onclick="deleteGnome(@item.Id)">
-                                    Delete
-                                </button>
-                            </div>
-                            <div class="sol-sm-4">
-                                <button class="btn btn-primary" onclick="hideGnome(@item.Id)">
-                                    Hide / Un-hide
-                                </button>
-                            </div>
-                        </div>
+                        <button class="btn btn-success btn-xs" onclick="editGnome(@item.Id)">
+                            Edit
+                        </button>
+                            
+                        <button class="btn btn-danger btn-xs" onclick="deleteGnome(@item.Id)">
+                            Delete
+                        </button>
+                            
+                            
+                        <button class="btn btn-primary btn-xs" onclick="hideGnome(@item.Id)">
+                            Hide
+                        </button>
                     }
                     <hr />
                 </div>
             </div>
         }
+        <div class="col-md-12">
+            <div class="pagination">
+                @Html.PagedListPager(Model, page => Url.Action("Index", new { page, pageSize = Model.PageSize }))
+            </div>
+        </div>
     </div>
 </div>
 

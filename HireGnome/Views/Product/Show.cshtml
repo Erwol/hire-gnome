@@ -62,8 +62,12 @@
                 <p><b>You're lucky, this Gnome is on Sale!</b></p>
                 <button onclick="window.location.assign('/Cart/Add/'+ @Model.Id)" class="btn btn-success btn-block">Before: <strike>@Model.Price$</strike> Now: @Model.ReducedPrice$<br /> <b>Get it now!</b></button>
             }
-            
-             
+            else
+            {
+                <button onclick="window.location.assign('/Cart/Add/'+ @Model.Id)" class="btn btn-success btn-block">@Model.Price$<br /> <b>Get it now!</b></button>
+            }
+
+
         </div>
     </div>
     <hr />

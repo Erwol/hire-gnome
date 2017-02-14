@@ -3,12 +3,12 @@
     ViewBag.Title = "Cart Content";
 }
 
-<h2>Products in your main cart (@Model.Name):</h2>
+<h2>Products the cart "@Model.Name"</h2>
 
 <ul>
     @foreach (var element in Model.Products)
     {
-        <li>@element</li>
+        <li>@element.Name <a style="color:black" href="@Url.Action("DeleteProduct", "Cart", new { cart_id = Model.Id, product_id = element.Id })"><b>Delete item from cart</b></a></li>
     }
 </ul>
 

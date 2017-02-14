@@ -12,9 +12,11 @@ namespace HireGnome.ViewModels
         [Key]
         public int Id { get; set; }
 
-        public virtual List<String> Products { get; set; }
+        public virtual List<Products> Products { get; set; }
 
         public int UserId { get; set; }
         public string Name { get; set; }
+
+        public double Price { get; set; }
     }
 }

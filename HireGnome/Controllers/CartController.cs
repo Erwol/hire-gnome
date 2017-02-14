@@ -49,7 +49,8 @@ namespace HireGnome.Controllers
                     return HttpNotFound();
                 var actual_cart = db.Carts.FirstOrDefault(x => x.User.Id == user.Id && x.IsMainCart == true);
 
-                actual_cart.IsMainCart = false;
+                if(actual_cart != null)
+                    actual_cart.IsMainCart = false;
                 cart_to_be_changed.IsMainCart = true;
 
                 db.SaveChanges();
@@ -57,6 +58,35 @@ namespace HireGnome.Controllers
                 return RedirectToAction("Index");
             }
            
+        }
+
+        // Delete a product from the cart
+        [HttpGet]
+        public ActionResult DeleteProduct(int cart_id, int product_id)
+        {
+            using(var db = new MainDbContext())
+            {
+                var cart = db.Carts.Find(cart_id);
+                if (cart == null)
+                    return HttpNotFound();
+                var user = db.Users.FirstOrDefault(x => x.Name == User.Identity.Name);
+
+                if (cart.User != user)
+                    return RedirectToAction("Index", "Home");
+
+                var product = db.Products.Find(product_id);
+                if (product == null)
+                    return HttpNotFound();
+
+                if (!cart.Products.Contains(product))
+                    return RedirectToAction("Index");
+
+                cart.Products.Remove(product);
+                product.Carts.Remove(cart);
+                db.SaveChanges();
+
+                return RedirectToAction("Index");
+            }
         }
 
         public ActionResult NewCart()
@@ -97,7 +127,7 @@ namespace HireGnome.Controllers
             {
                 var user = db.Users.FirstOrDefault(x => x.Name == User.Identity.Name);
                 var main_cart = db.Carts.FirstOrDefault(x => x.User.Id == user.Id && x.IsMainCart == true);
-                return CartContentById(main_cart.Id);
+                return RedirectToAction("CartContentById", new { Id = main_cart.Id });
             }
         }
 
@@ -113,20 +143,17 @@ namespace HireGnome.Controllers
                 cart_model.Name = main_cart.Name;
                 cart_model.Id = main_cart.Id;
                 cart_model.UserId = main_cart.User.Id;
-                cart_model.Products = new List<string>();
+                cart_model.Products = new List<Products>();
                 for (int i = 0; i < main_cart.Products.Count; i++)
                 {
                     var gnome = main_cart.Products.ElementAt(i);
-                    double price = 0;
                     if (gnome.Offer > 0)
-                    {
-                        price = gnome.Price * ((double)gnome.Offer / 100.0);
-                        cart_model.Products.Add(gnome.Name + ": " + price + "$ (Price without offer: " + gnome.Price + "$)");
-                    }
+                        cart_model.Price += gnome.Price * ((double)gnome.Offer / 100.0);
+
                     else
-                    {
-                        cart_model.Products.Add(gnome.Name + ". " + gnome.Price + "$");
-                    }
+                        cart_model.Price += gnome.Price;
+                    
+                    cart_model.Products.Add(gnome);
 
                 }
 

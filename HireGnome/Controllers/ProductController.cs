@@ -7,6 +7,8 @@ using HireGnome.Models;
 using System.Security.Claims;
 using System.Data.Entity;
 using HireGnome.ViewModels;
+using System.Threading.Tasks;
+using PagedList;
 
 namespace HireGnome.Controllers
 {
@@ -14,50 +16,37 @@ namespace HireGnome.Controllers
     public class ProductController : Controller
     {
         // GET: Product
-        public ActionResult Index()
+        public ActionResult Index(int page = 1, int pageSize = 3)
         {
             var db = new MainDbContext();
-            /*
-            ListGnomesViewModel gnomeList = new ListGnomesViewModel();
-            // The admin also wants the info related to hidden gnomes
+            PagedList<Products> paged_products;
             if (User.IsInRole("admin"))
-                foreach (Products model in db.Products.ToList()){
-                    ShowGnomeViewModel gnome = new ShowGnomeViewModel();
-                    gnome.Id = model.Id;
-                    gnome.Image = model.Image;
-                    gnome.IsPublic = model.IsPublic;
-                    gnome.Name = model.Name;
-                    gnome.Offer = model.Offer;
-                    gnome.Price = model.Price;
-                    if (gnome.Offer > 0)
-                        gnome.ReducedPrice = gnome.Price * ((double)gnome.Offer / 100.0);
-                    gnome.Details = model.Details;
-                    gnome.Latitude = model.Latitude;
-                    gnome.Longitude = model.Longitude;
-                    gnomeList.Gnomes.Add(gnome);
-                }
+                paged_products = new PagedList<Products>(db.Products.ToList(), page, pageSize);
             else
-                foreach (Products model in db.Products.ToList().Where(u => u.IsPublic == true))
+                paged_products = new PagedList<Products>(db.Products.ToList().Where(u => u.IsPublic == true), page, pageSize);
+
+            return View(paged_products);
+        }
+
+
+        public async Task<ActionResult> Search(string searchString)
+        {
+            using(var db = new MainDbContext())
+            {
+                if (!String.IsNullOrEmpty(searchString))
                 {
-                    ShowGnomeViewModel gnome = new ShowGnomeViewModel();
-                    gnome.Id = model.Id;
-                    gnome.Image = model.Image;
-                    gnome.IsPublic = model.IsPublic;
-                    gnome.Name = model.Name;
-                    gnome.Offer = model.Offer;
-                    gnome.Price = model.Price;
-                    if (gnome.Offer > 0)
-                        gnome.ReducedPrice = gnome.Price * ((double)gnome.Offer / 100.0);
-                    gnome.Details = model.Details;
-                    gnome.Latitude = model.Latitude;
-                    gnome.Longitude = model.Longitude;
-                    gnomeList.Gnomes.Add(gnome);
+                    var gnomes  = db.Products.Where(s => s.Name.Contains(searchString));
+                    return View(await gnomes.ToListAsync());
                 }
-                */
-            if(User.IsInRole("admin"))
-                return View(db.Products.ToList());
-            else
-                return View(db.Products.ToList().Where(u => u.IsPublic == true));
+                else
+                {
+                    return View();
+                }
+
+                
+            }
+
+            
         }
 
         public ActionResult GetGnomes()

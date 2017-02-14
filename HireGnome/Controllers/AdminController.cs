@@ -53,6 +53,8 @@ namespace HireGnome.Controllers
                     dbProduct.Offer = model.Offer;
                     dbProduct.IsPublic = model.IsPublic;
                     dbProduct.Image = model.Image;
+                    dbProduct.CreationDate = DateTime.Now;
+                    dbProduct.ModificationDate = DateTime.Now;
                     db.Products.Add(dbProduct);
                     db.SaveChanges();
 
@@ -139,7 +141,12 @@ namespace HireGnome.Controllers
             if (model == null)
                 return HttpNotFound();
 
+            // Search all the carts
+            for (int i = 0; i < model.Carts.Count; i++)
+                model.Carts.ElementAt(i).Products.Remove(model);
+
             db.Products.Remove(model);
+            db.SaveChanges();
             return RedirectToAction("Index", "Product");
         }
 
